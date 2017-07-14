@@ -1,0 +1,34 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="chat:war exploded">
+    <output-path>$PROJECT_DIR$/target/chat</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="chat" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.jfinal:jfinal:3.1" />
+          <element id="library" level="project" name="Maven: cglib:cglib-nodep:3.1" />
+          <element id="library" level="project" name="Maven: log4j:log4j:1.2.16" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.7" />
+          <element id="library" level="project" name="Maven: com.googlecode.log4jdbc:log4jdbc:1.2" />
+          <element id="library" level="project" name="Maven: org.slf4j:log4j-over-slf4j:1.7.7" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.20" />
+          <element id="library" level="project" name="Maven: com.alibaba:druid:1.0.29" />
+          <element id="library" level="project" name="Maven: com.jfinal:cos:2017.5" />
+          <element id="library" level="project" name="Maven: cn.fsdev:jfinal-mail-plugin:3.0" />
+          <element id="library" level="project" name="Maven: javax.mail:mail:1.4.4" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
+          <element id="library" level="project" name="Maven: com.xiaoleilu:hutool-all:3.0.5" />
+          <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
+          <element id="library" level="project" name="Maven: taglibs:standard:1.1.2" />
+          <element id="library" level="project" name="Maven: javax.websocket:javax.websocket-api:1.1" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/chat/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="chat/web/Web" />
+    </root>
+  </artifact>
+</component>

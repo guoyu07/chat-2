@@ -8,10 +8,9 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/api/jquery.mobile.flatui.css" />
 <ul id="myTab" class="nav nav-tabs">
     <li class="active"><a href="#home" data-toggle="tab">全部</a></li>
-    <li><a href="#hahaha" data-toggle="tab">hahahha</a></li>
 </ul>
 <div id="myTabContent" class="tab-content">
-    <div class="tab-pane fade in active" id="home" st>
+    <div class="tab-pane fade in active" id="home">
         <div data-role="content" class="container" role="main">
             <ul class="content-reply-box mg10" id="msgBox" style="padding-bottom: 100px;">
             </ul>

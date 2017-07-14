@@ -12,7 +12,7 @@
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade in active" id="home">
         <div data-role="content" class="container" role="main">
-            <ul class="content-reply-box mg10" id="msgBox" style="padding-bottom: 100px;">
+            <ul class="content-reply-box mg10" style="padding-bottom: 100px;">
             </ul>
         </div>
     </div>
@@ -119,7 +119,7 @@
         if(json.to == ''){ // 发送至所有人
             var href = $('.active').children('a').attr('href');
             href = href.substring(1,href.length);
-            $('#'+href).children('ul').append(html);
+            $('#'+href).children().children().append(html);
         }else{ // 发送给固定用户
 
         }
@@ -172,10 +172,10 @@
             $('#' + href).attr('class', 'tab-pane fade');
         })
         if (!flag) {
-            var name = id.substring(1, id.length);
             $("#myTab li[class='active']").removeAttr('class');
-            $('#myTab').append("<li class='active'><a href='#" + user.text + "' data-toggle='tab'>" + user.text + "</a></li>");
-            $('#myTabContent').append("<div class='tab-pane fade active in' id='" + user.text + "'></div>");
+            var userId = user.text.replace(".","");
+            $('#myTab').append("<li class='active'><a href='#" + $.trim(userId) + "' data-toggle='tab'>" + user.text + "</a></li>");
+            $('#myTabContent').append("<div class='tab-pane fade active in' id='" + $.trim(userId) + "'></div>");
         }
     }
 </script>

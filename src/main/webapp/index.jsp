@@ -117,7 +117,9 @@
         html += '</div>';
         html += '</li>';
         if(json.to == ''){ // 发送至所有人
-            $('#msgBox').append(html);
+            var href = $('.active').children('a').attr('href');
+            href = href.substring(1,href.length);
+            $('#'+href).children('ul').append(html);
         }else{ // 发送给固定用户
 
         }

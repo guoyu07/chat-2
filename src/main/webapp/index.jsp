@@ -100,7 +100,7 @@
         if('${sessionScope.loginUser.id}' == json.from)
             html += '<a class="user" href="javascript:;">';
         else
-            html += '<a class="user" href="javascript:;" onclick="choose(this)">';
+            html += '<a class="user" href="javascript:;" data="'+json.from+'" onclick="choose(this)">';
         html += '<img class="img-responsive avatar_" src="${pageContext.request.contextPath}/images/avatar.png" alt="">';
         html += ' <span class="user-name">' + json.fromEmail + '</span>';
         html += '</a>';
@@ -116,12 +116,49 @@
         html += '</div>';
         html += '</div>';
         html += '</li>';
+        // 获取当前选中
+        var href = $('.active').children('a').attr('href');
+        href = href.substring(1,href.length);
         if(json.to == ''){ // 发送至所有人
-            var href = $('.active').children('a').attr('href');
-            href = href.substring(1,href.length);
             $('#'+href).children().children().append(html);
         }else{ // 发送给固定用户
-
+            if(json.from == '${sessionScope.loginUser.id}'){ // 发送者显示
+                $('#'+href).children().children().append(html);
+            }
+            if(json.to == '${sessionScope.loginUser.id}'){ // 接收者显示
+                var flag = false;
+                $('#myTab li').each(function () {
+                    if($(this).children('a').attr('href') == ('#'+json.from)){ // 如果已存在,切换至
+                        $('#myTab li').each(function () { // 清除
+                            $(this).attr('class', '');
+                            $($(this).children('a').attr('href')).attr('class', 'tab-pane fade');
+                        });
+                        // 设置
+                        $(this).attr('class', 'active');
+                        $('#' + json.from).attr('class', 'tab-pane fade in active');
+                        $('#'+json.from).children().children().append(html);
+                        flag = true;
+                        return false;
+                    }
+                });
+                if(!flag) {
+                    // 不存在则添加聊天界面
+                    $('#myTab li').each(function () { // 清除
+                        $(this).attr('class', '');
+                        $($(this).children('a').attr('href')).attr('class', 'tab-pane fade');
+                    });
+                    $('#myTab').append("<li class='active'><a href='#" + json.from + "' data-toggle='tab'>" + json.fromEmail + "</a></li>");
+                    var otherHtml = '';
+                    otherHtml += '<div class="tab-pane fade in active" id="' + json.from + '">';
+                    otherHtml += '<div data-role="content" class="container" role="main">';
+                    otherHtml += '<ul class="content-reply-box mg10" style="padding-bottom: 100px;">';
+                    otherHtml += html;
+                    otherHtml += '</ul>';
+                    otherHtml += '</div>';
+                    otherHtml += '</div>';
+                    $('#myTabContent').append(otherHtml);
+                }
+            }
         }
     }
 
@@ -136,9 +173,15 @@
         auth.msg = message.val();
         var who = $('li[class="active"]').children('a').attr('href');
         if(who == '#home'){
+            auth.to = '';
+            auth.toEmail = '';
             websocket.send(getMsg());
-        }else{
-
+        }else{ // 发送给其他人
+            var to = $('li[class="active"]').children('a').attr('href');
+            var toEmail = $.trim($('li[class="active"]').children('a').text());
+            auth.to = to.substring(1,to.length);
+            auth.toEmail = toEmail;
+            websocket.send(getMsg());
         }
         message.val('');
     }
@@ -157,25 +200,34 @@
 
     function choose(user) {
         var flag = false;
-        var id = $("#myTab li[class='active']").children('a').attr('href');
-        $('#myTab li').each(function () {
-            if ($(this).children('a').attr('href') == ("#" + user.text)) {
-                alert('已存在!');
+        var data = $(user).attr('data');
+        $('#myTab li').each(function () { // 验证是否已打开聊天窗口
+            if ($(this).children('a').attr('href') == ('#'+data)) {
                 flag = true;
-                return false;
             }
         })
-        $('#myTab li').each(function () {
+        $('#myTab li').each(function () { // 清除
             $(this).attr('class', '');
-            var href = $(this).children('a').attr('href');
-            href = href.substring(1, href.length);
-            $('#' + href).attr('class', 'tab-pane fade');
-        })
+            $($(this).children('a').attr('href')).attr('class', 'tab-pane fade');
+        });
         if (!flag) {
             $("#myTab li[class='active']").removeAttr('class');
-            var userId = user.text.replace(".","");
-            $('#myTab').append("<li class='active'><a href='#" + $.trim(userId) + "' data-toggle='tab'>" + user.text + "</a></li>");
-            $('#myTabContent').append("<div class='tab-pane fade active in' id='" + $.trim(userId) + "'></div>");
+            $('#myTab').append("<li class='active'><a href='#" + data + "' data-toggle='tab'>" + user.text + "</a></li>");
+            var html = '';
+            html += '<div class="tab-pane fade in active" id="' + data + '">';
+            html += '<div data-role="content" class="container" role="main">';
+            html += '<ul class="content-reply-box mg10" style="padding-bottom: 100px;">';
+            html += '</ul>';
+            html += '</div>';
+            html += '</div>';
+            $('#myTabContent').append(html);
+        } else {
+            $('#myTab li').each(function () { // 切换至聊天窗口
+                if ($(this).children('a').attr('href') == ('#' + data)) {
+                    $(this).attr('class', 'active');
+                }
+            });
+            $('#' + data).attr('class', 'tab-pane fade in active');
         }
     }
 </script>

@@ -84,7 +84,10 @@
                         </span>
                     </a>
                 </td>
-                <td><a href="javascript:;" onclick="playMusic('${s.url}');"><img src="${pageContext.request.contextPath}/images/play.jpg" width="30px" height="30px"/></a></td>
+                <td><a href="javascript:;" onclick="playMusic('${s.url}');"><img src="${pageContext.request.contextPath}/images/play.jpg" width="30px" height="30px"/></a>
+                <a href="#">查看二维码</a>
+                    <a href="#">下载二维码</a>
+                </td>
             </tr>
         </c:forEach>
         <tr>

@@ -36,4 +36,8 @@ public class MusicController extends Controller {
 				.setAttr("songs", songs).setAttr("album", album).setAttr("singers", singers)
 				.setAttr(Constants.TITLE, "music").renderJsp("songs.jsp");
 	}
+
+	public void showQrCode(){
+
+	}
 }

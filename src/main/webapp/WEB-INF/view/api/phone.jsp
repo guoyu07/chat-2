@@ -31,8 +31,8 @@
         }
     });
 
-    $('#phone').keypress(function () {
-        if (event.which == 13) {
+    $('#phone').keypress(function (e) {
+        if (e.keyCode == 13) {
             search();
             $('#phone').blur();
         }

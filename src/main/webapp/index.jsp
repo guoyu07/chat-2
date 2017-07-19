@@ -41,8 +41,8 @@
     $(function () {
         $('#myTab li:eq(0) a').tab('show');
         $('#message').focus();
-        $("body").keydown(function () {
-            if (event.keyCode == "13") {//keyCode=13是回车键
+        $("body").keydown(function (e) {
+            if (e.keyCode == "13") {//keyCode=13是回车键
                 send();
             }
         });

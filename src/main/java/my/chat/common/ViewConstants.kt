@@ -19,7 +19,7 @@ object ViewConstants {
 
     val WEATHER = "weather.jsp"
 
-    val REGISTER = "REGISTER.jsp"
+    val REGISTER = "register.jsp"
 
     val ACTIVATE = "activate.jsp"
 

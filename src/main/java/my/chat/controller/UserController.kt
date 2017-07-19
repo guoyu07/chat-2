@@ -94,31 +94,17 @@ class UserController : Controller() {
     }
 
     @Clear
-    fun checkEmail() {
-        renderText(if (userService.checkEmail(getPara("email"))) "true" else "false")
-    }
+    fun checkEmail() = renderText(if (userService.checkEmail(getPara("email"))) "true" else "false")
 
     @Clear
-    fun waitActivate() {
-        setAttr("email", getPara("email")).renderJsp(ViewConstants.WAITACTIVATE)
-    }
+    fun waitActivate() = setAttr("email", getPara("email")).renderJsp(ViewConstants.WAITACTIVATE)
 
-    /*
-		退出
-	 */
-    fun exit() {
-        removeSessionAttr(UserConstants.LOGIN_USER).redirect("/")
-    }
+    fun exit() = removeSessionAttr(UserConstants.LOGIN_USER).redirect("/")
 
-    fun my() {
-        setAttr(Constants.TITLE, "个人信息").renderJsp(ViewConstants.MYINFO)
-    }
+    fun my() = setAttr(Constants.TITLE, "个人信息").renderJsp(ViewConstants.MYINFO)
 
-    /*
-		上传头像 ==
-	 */
+    // 上传头像
     fun uploadPic() {
-        //第二个参数为a，则保存到upload/a文件夹下，自动创建文件夹
         user = getSessionAttr<User>(UserConstants.LOGIN_USER)
         val file = getFile(getPara("picSummary"))
         redirect("/user/my")

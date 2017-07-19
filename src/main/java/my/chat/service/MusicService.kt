@@ -32,33 +32,25 @@ class MusicService {
         if (ObjectUtil.isNull(queryName))
             page = dao.paginate(p, pageSize, sqlPrifix, sqlSuffix.toString())
         else {
-            sqlSuffix.append(" AND (")
-            if (songs == null && album == null && singers == null) {
-
-            } else if (songs == null && album != null && singers == null) {
-                sqlSuffix.append("a.albumname LIKE ?)")
-                page = dao.paginate(p, pageSize, sqlPrifix, sqlSuffix.toString(), queryName)
+            if (songs != null || album != null || singers != null)
+                sqlSuffix.append(" AND (")
+            if (songs == null && album != null && singers == null) {
+                sqlSuffix.append("a.albumname LIKE '${queryName}')")
             } else if (songs == null && album == null && singers != null) {
-                sqlSuffix.append("ss.name LIKE ?)")
-                page = dao.paginate(p, pageSize, sqlPrifix, sqlSuffix.toString(), queryName)
+                sqlSuffix.append("ss.name LIKE '${queryName}')")
             } else if (songs == null && album != null && singers != null) {
-                sqlSuffix.append("a.albumname LIKE ? OR ss.name LIKE ?)")
-                page = dao.paginate(p, pageSize, sqlPrifix, sqlSuffix.toString(), queryName, queryName)
+                sqlSuffix.append("a.albumname LIKE '${queryName}' OR ss.name LIKE '${queryName}')")
             } else if (songs != null && album != null && singers != null) {
-                sqlSuffix.append("s.name LIKE ? OR a.albumname LIKE ? OR ss.name LIKE ?)")
-                page = dao.paginate(p, pageSize, sqlPrifix, sqlSuffix.toString(), queryName, queryName, queryName)
+                sqlSuffix.append("s.name LIKE '${queryName}' OR a.albumname LIKE '${queryName}' OR ss.name LIKE '${queryName}')")
             } else if (songs != null && album == null && singers == null) {
-                sqlSuffix.append("s.name LIKE ?)")
-                page = dao.paginate(p, pageSize, sqlPrifix, sqlSuffix.toString(), queryName)
+                sqlSuffix.append("s.name LIKE '${queryName}')")
             } else if (songs != null && album != null && singers == null) {
-                sqlSuffix.append("s.name LIKE ? OR a.albumname LIKE ?)")
-                page = dao.paginate(p, pageSize, sqlPrifix, sqlSuffix.toString(), queryName, queryName)
+                sqlSuffix.append("s.name LIKE '${queryName}' OR a.albumname LIKE '${queryName}')")
             } else if (songs != null && album == null && singers != null) {
-                sqlSuffix.append("s.name LIKE ? OR ss.name LIKE ?)")
-                page = dao.paginate(p, pageSize, sqlPrifix, sqlSuffix.toString(), queryName, queryName)
+                sqlSuffix.append("s.name LIKE '${queryName}' OR ss.name LIKE '${queryName}')")
             }
         }
-        return page
+        return dao.paginate(p, pageSize, sqlPrifix, sqlSuffix.toString())
     }
 
 }

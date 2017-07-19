@@ -48,7 +48,4 @@ class MusicController : Controller() {
                 .setAttr(Constants.TITLE, "music").renderJsp(ViewConstants.SONGS)
     }
 
-    fun hello(queryName: String){
-        println(queryName)
-    }
 }

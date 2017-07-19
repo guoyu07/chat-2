@@ -23,15 +23,14 @@ class MusicService {
     }
 
     fun listSongs(pageNumber: String?, pageSize: Int, queryName: String?, songs: String?, album: String?, singers: String?): Page<Songs>? {
-        var queryName = queryName
         val sqlPrifix = "SELECT s.id,s.name,s.url,s.mvurl,s.alias,s.duration,a.albumname,a.albumurl,ss.name AS sname,ss.homepage"
         val sqlSuffix = StringBuffer("FROM songs s,album a,singers ss WHERE s.albumid=a.id AND a.singerid=ss.id")
         var page: Page<Songs>? = null
-        queryName = if (ObjectUtil.isNull(queryName)) queryName else "%$queryName%"
         val p = if (pageNumber == null) 1 else Integer.parseInt(pageNumber)
         if (ObjectUtil.isNull(queryName))
             page = dao.paginate(p, pageSize, sqlPrifix, sqlSuffix.toString())
         else {
+            val queryName = "%$queryName%"
             if (songs != null || album != null || singers != null)
                 sqlSuffix.append(" AND (")
             if (songs == null && album != null && singers == null) {

@@ -1,4 +1,4 @@
-package my.chat.common
+package my.chat.plugin
 
 /**
  * Created by lyu on 2017/6/24.

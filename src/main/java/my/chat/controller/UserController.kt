@@ -6,7 +6,7 @@ import com.jfinal.upload.UploadFile
 import com.jfplugin.mail.MailKit
 import com.xiaoleilu.hutool.util.ObjectUtil
 import my.chat.common.Constants
-import my.chat.common.Mail
+import my.chat.plugin.Mail
 import my.chat.common.UserConstants
 import my.chat.common.ViewConstants
 import my.chat.model.User

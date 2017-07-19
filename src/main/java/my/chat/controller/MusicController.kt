@@ -8,9 +8,12 @@ import my.chat.common.Constants
 import my.chat.common.MusicConstants
 import my.chat.common.ViewConstants
 import my.chat.model.Songs
+import my.chat.plugin.EncoderImage
 import my.chat.service.MusicService
-
+import java.io.File
+import java.io.FileInputStream
 import java.io.UnsupportedEncodingException
+import java.net.URLEncoder
 
 /**
  * @author lyu lyusantu@gmail.com
@@ -48,4 +51,39 @@ class MusicController : Controller() {
                 .setAttr(Constants.TITLE, "music").renderJsp(ViewConstants.SONGS)
     }
 
+
+    fun showQRCode() {
+        renderJsp("qrcode.jsp")
+    }
+
+    fun createQRCode() {
+        EncoderImage.writeToStream("http://www.baidu.com", response)
+    }
+
+    fun downloadQRCode() {
+        val realpath = session.servletContext.getRealPath("/qrcode")
+        val file = File(realpath)
+        if (!file.exists()) {
+            file.mkdir()
+            println("创建文件夹${realpath}")
+        }
+        val fileName = "qrcode.jpg"
+        val path = realpath + "/" + fileName
+        EncoderImage.writeToFile("http://www.baidu.com", File(path))
+        val iS = FileInputStream(path)
+        val os = response.outputStream
+        response.addHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(fileName, "utf-8"))
+//        iS.buffered().reader().use {
+//            reader -> os.write(reader.read())
+//        }
+        val byte = ByteArray(1024)
+        var size = iS.read(byte)
+        while (size > 0) {
+            os.write(byte, 0, size)
+            size = iS.read(byte)
+        }
+        iS.close()
+        os.close()
+        renderNull()
+    }
 }

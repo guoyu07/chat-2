@@ -85,8 +85,8 @@
                     </a>
                 </td>
                 <td><a href="javascript:;" onclick="playMusic('${s.url}');"><img src="${pageContext.request.contextPath}/images/play.jpg" width="30px" height="30px"/></a>
-                <a href="#">查看二维码</a>
-                    <a href="#">下载二维码</a>
+                <a href="javascript:;" onclick="openWin('${pageContext.request.contextPath}/music/showQRCode')">查看二维码</a>
+                    <a href="/music/downloadQRCode">下载二维码</a>
                 </td>
             </tr>
         </c:forEach>
@@ -150,5 +150,16 @@
             $('.' + id + 'Span1').show().next().hide();
         else
             $('.' + id + 'Span1').hide().next().show();
+    }
+
+    function openWin(url) {
+        var name='二维码';                          //网页名称，可为空;
+        var iWidth=540;                          //弹出窗口的宽度;
+        var iHeight=450;                         //弹出窗口的高度;
+        //获得窗口的垂直位置
+        var iTop = (window.screen.availHeight - 30 - iHeight) / 2;
+        //获得窗口的水平位置
+        var iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
+        window.open(url, name, 'height=' + iHeight + ',,innerHeight=' + iHeight + ',width=' + iWidth + ',innerWidth=' + iWidth + ',top=' + iTop + ',left=' + iLeft + ',status=no,toolbar=no,menubar=no,location=no,resizable=no,scrollbars=0,titlebar=no');
     }
 </script>

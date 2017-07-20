@@ -10,6 +10,7 @@ import java.io.File
 import java.io.IOException
 import java.util.*
 import javax.servlet.http.HttpServletResponse
+import javax.servlet.http.HttpSession
 
 /**
  * @author lyu lyusantu@gmail.com
@@ -23,6 +24,16 @@ import javax.servlet.http.HttpServletResponse
  * @date ${date} ${time}
  */
 object EncoderImage {
+
+    @Throws(WriterException::class, IOException::class)
+    fun writeToStream(content: String, response: HttpServletResponse, session: HttpSession) {
+        MatrixToImageWriter.writeToStream(encoderQRCode(content), "jpg", response.outputStream, session)
+    }
+
+    @Throws(WriterException::class, IOException::class)
+    fun writeToFile(content: String, file: File, session: HttpSession) {
+        MatrixToImageWriter.writeToFile(encoderQRCode(content), "jpg", file, session)
+    }
 
     @Throws(WriterException::class, IOException::class)
     fun encoderQRCode(content: String): BitMatrix {
@@ -49,13 +60,4 @@ object EncoderImage {
         return bitMatrix
     }
 
-    @Throws(WriterException::class, IOException::class)
-    fun writeToStream(content: String, response: HttpServletResponse) {
-        MatrixToImageWriter.writeToStream(encoderQRCode(content), "jpg", response.outputStream)
-    }
-
-    @Throws(WriterException::class, IOException::class)
-    fun writeToFile(content: String, file: File) {
-        MatrixToImageWriter.writeToFile(encoderQRCode(content), "jpg", file)
-    }
 }

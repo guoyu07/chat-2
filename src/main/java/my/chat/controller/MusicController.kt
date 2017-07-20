@@ -14,6 +14,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
+import java.util.*
 
 /**
  * @author lyu lyusantu@gmail.com
@@ -57,7 +58,7 @@ class MusicController : Controller() {
     }
 
     fun createQRCode() {
-        EncoderImage.writeToStream("http://www.baidu.com", response)
+        EncoderImage.writeToStream("http://www.baidu.com", response, session)
     }
 
     fun downloadQRCode() {
@@ -65,17 +66,13 @@ class MusicController : Controller() {
         val file = File(realpath)
         if (!file.exists()) {
             file.mkdir()
-            println("创建文件夹${realpath}")
         }
-        val fileName = "qrcode.jpg"
+        val fileName = System.currentTimeMillis().toString() + ".jpg"
         val path = realpath + "/" + fileName
-        EncoderImage.writeToFile("http://www.baidu.com", File(path))
+        EncoderImage.writeToFile("http://www.baidu.com", File(path), session)
         val iS = FileInputStream(path)
         val os = response.outputStream
         response.addHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(fileName, "utf-8"))
-//        iS.buffered().reader().use {
-//            reader -> os.write(reader.read())
-//        }
         val byte = ByteArray(1024)
         var size = iS.read(byte)
         while (size > 0) {

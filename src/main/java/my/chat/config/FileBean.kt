@@ -7,9 +7,6 @@ package my.chat.config
  * @date ${date} ${time}
  * @version V1.0
  */
-object FileUpload{
+class FileBean {
 
-    fun uploadImgFile(){
-        var fileBean = FileBean();
-    }
 }

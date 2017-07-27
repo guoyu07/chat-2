@@ -10,11 +10,11 @@ import com.jfinal.plugin.druid.DruidPlugin
 import com.jfinal.template.Engine
 import com.jfplugin.mail.MailPlugin
 import my.chat.Interceptor.LoginInterceptor
-import my.chat.controller.FileUploadController
 import my.chat.controller.IndexController
 import my.chat.handler.WsHandler
 import my.chat.model._MappingKit
 import my.chat.route.APIRoute
+import my.chat.route.ArticleRoute
 import my.chat.route.MusicRoute
 import my.chat.route.UserRoute
 
@@ -50,7 +50,7 @@ class Config : JFinalConfig() {
         routes.add(UserRoute())
         routes.add(MusicRoute())
         routes.add(APIRoute())
-        routes.add("/upload",FileUploadController::class.java);
+        routes.add(ArticleRoute())
     }
 
     override fun configEngine(engine: Engine) {

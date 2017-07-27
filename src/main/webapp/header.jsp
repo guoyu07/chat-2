@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/layer/layer.js" type="text/javascript"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse" role="navigation">
@@ -34,6 +35,18 @@
                 <li><a href="${pageContext.request.contextPath}/api/robot">robot</a></li>
                 <li><a href="${pageContext.request.contextPath}/music/listSongs">music</a></li>
                 <li><a href="${pageContext.request.contextPath}/api/weather">weather</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        文章 <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="${pageContext.request.contextPath}/article/list">所有文章</a></li>
+                        <li class="divider"></li>
+                        <li><a href="${pageContext.request.contextPath}/article/mylist">我的文章</a></li>
+                        <li class="divider"></li>
+                        <li><a href="${pageContext.request.contextPath}/article/add">写文章</a></li>
+                    </ul>
+                </li>
                 <li>
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">

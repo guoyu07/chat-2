@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -7,18 +8,31 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="${pageContext.request.contextPath}/header.jsp" flush="true"/>
-<ul class="list-group" style="width: 40%">
-    <li class="list-group-item">免费域名注册</li>
-    <li class="list-group-item">免费 Window 空间托管</li>
-    <li class="list-group-item">图像的数量</li>
-    <li class="list-group-item">
-        <span class="badge">新</span>
-        24*7 支持
+<ul class="list-group" style="width: 30%">
+    <c:forEach items="${page.list}" var="article">
+        <li class="list-group-item">
+            <span class="badge">${article.authorName}</span>
+            <a href="/article/details?id=${article.id}">${article.title}</a>
+        </li>
+    </c:forEach>
+</ul>
+<ul class="pagination">
+    <li <c:if test="${page.pageNumber - 1 < 1}">class="disabled"</c:if>>
+        <c:if test="${page.pageNumber - 1 < 1}">
+            <a href="#">上一页</a>
+        </c:if>
+        <c:if test="${page.pageNumber - 1 >= 1}">
+            <a href="/article/list?p=${page.pageNumber - 1}">上一页</a>
+        </c:if>
     </li>
-    <li class="list-group-item">每年更新成本</li>
-    <li class="list-group-item">
-        <span class="badge">新</span>
-        折扣优惠
+    <li class="active"><a href="#">${page.pageNumber}</a></li>
+    <li <c:if test="${page.pageNumber + 1 > page.totalPage}">class="disabled"</c:if>>
+        <c:if test="${page.pageNumber + 1 > page.totalPage}">
+            <a href="#">下一页</a>
+        </c:if>
+        <c:if test="${page.pageNumber + 1 <= page.totalPage}">
+            <a href="/article/list?p=${page.pageNumber + 1}">下一页</a>
+        </c:if>
     </li>
 </ul>
 </body>

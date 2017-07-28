@@ -28,21 +28,21 @@
     }
 </style>
 <body>
-<form action="/article/add" method="post" enctype="multipart/form-data" id="articleForm">
+<form action="/article/add" method="post" id="articleForm">
     <input type="text" class="form-control input-lg" id="title" name="article.title" placeholder="请输入文章标题">
     <input type="text" class="form-control input-lg" id="keywords" name="article.keywords" placeholder="请输入文章关键字,用空格分割">
     <input type="hidden" id="content" name="article.content"/>
     <input type="hidden" id="authorId" name="article.authorId" value="${sessionScope.loginUser.id}"/>
     <input type="hidden" id="authorName" name="article.authorName" value="${sessionScope.loginUser.email}"/>
+</form>
     <!-- 加载编辑器的容器 -->
     <script id="container" type="text/plain" style="height:500px;">
     </script>
     <br/>
     <div style="margin-left: 10px;">
-        <button class="btn btn-info btn-lg" type="submit" id="publish">发表</button>
+        <button class="btn btn-info btn-lg" type="button" id="publish">发表</button>
         <button class="btn btn-info btn-lg" type="button">返回</button>
     </div>
-</form>
 </body>
 <!-- 实例化编辑器 -->
 <script type="text/javascript">
@@ -63,7 +63,7 @@
             return false;
         }
         $('#content').val(content);
-        var ii = layer.load();
+       var ii = layer.load();
         setTimeout(function () {
             $('#articleForm').submit();
             layer.close(ii);

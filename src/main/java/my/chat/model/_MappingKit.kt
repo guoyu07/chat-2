@@ -21,6 +21,7 @@ object _MappingKit {
         arp.addMapping("songs", "id", Songs::class.java)
         arp.addMapping("type", "id", Type::class.java)
         arp.addMapping("user", "id", User::class.java)
+        arp.addMapping("article", "id", Article::class.java)
     }
 }
 

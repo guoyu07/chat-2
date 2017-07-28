@@ -2,7 +2,6 @@ package my.chat.Interceptor
 
 import com.jfinal.aop.Interceptor
 import com.jfinal.aop.Invocation
-import com.jfinal.core.Controller
 import my.chat.common.UserConstants
 import my.chat.model.User
 

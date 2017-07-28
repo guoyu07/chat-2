@@ -1,4 +1,4 @@
-%--
+<%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2017/7/27
@@ -29,9 +29,11 @@
 </style>
 <body>
 <form action="/article/add" method="post" enctype="multipart/form-data" id="articleForm">
-    <input type="text" class="form-control input-lg" id="title" placeholder="请输入文章标题">
-    <input type="text" class="form-control input-lg" id="keywords" placeholder="请输入文章关键字,用空格分割">
-    <input type="hidden" id="content" name="content"/>
+    <input type="text" class="form-control input-lg" id="title" name="article.title" placeholder="请输入文章标题">
+    <input type="text" class="form-control input-lg" id="keywords" name="article.keywords" placeholder="请输入文章关键字,用空格分割">
+    <input type="hidden" id="content" name="article.content"/>
+    <input type="hidden" id="authorId" name="article.authorId" value="${sessionScope.loginUser.id}"/>
+    <input type="hidden" id="authorName" name="article.authorName" value="${sessionScope.loginUser.email}"/>
     <!-- 加载编辑器的容器 -->
     <script id="container" type="text/plain" style="height:500px;">
     </script>

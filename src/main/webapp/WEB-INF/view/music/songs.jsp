@@ -154,8 +154,8 @@
 
     function openWin(url) {
         var name='二维码';                          //网页名称，可为空;
-        var iWidth=540;                          //弹出窗口的宽度;
-        var iHeight=450;                         //弹出窗口的高度;
+        var iWidth=550;                          //弹出窗口的宽度;
+        var iHeight=460;                         //弹出窗口的高度;
         //获得窗口的垂直位置
         var iTop = (window.screen.availHeight - 30 - iHeight) / 2;
         //获得窗口的水平位置

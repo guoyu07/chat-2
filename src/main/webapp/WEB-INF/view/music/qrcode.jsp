@@ -11,8 +11,8 @@
 
     #center-in-center {
         margin: 20% auto;
-        width: 200px;
-        height: 200px;
+        width: 250px;
+        height: 250px;
     }
 </style>
 <body>

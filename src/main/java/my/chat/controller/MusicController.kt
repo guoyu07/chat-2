@@ -8,7 +8,7 @@ import my.chat.common.Constants
 import my.chat.common.MusicConstants
 import my.chat.common.ViewConstants
 import my.chat.model.Songs
-import my.chat.plugin.EncoderImage
+import my.chat.plugin.ZXingCode
 import my.chat.service.MusicService
 import java.io.File
 import java.io.FileInputStream
@@ -58,7 +58,7 @@ class MusicController : Controller() {
     }
 
     fun createQRCode() {
-        EncoderImage.writeToStream("http://www.baidu.com", response, session)
+        ZXingCode.writeToStream("http://www.baidu.com","content","D:/111.jpg",response, session)
     }
 
     fun downloadQRCode() {
@@ -69,7 +69,10 @@ class MusicController : Controller() {
         }
         val fileName = System.currentTimeMillis().toString() + ".jpg"
         val path = realpath + "/" + fileName
-        EncoderImage.writeToFile("http://www.baidu.com", File(path), session)
+//        EncoderImage.writeToFile("http://www.baidu.com", File(path), session)
+        val url = "http://www.taobao.com"
+        val content = "123456789"
+        ZXingCode.writeToFile(url, content, "D:/111.jpg",File(path), session)
         val iS = FileInputStream(path)
         val os = response.outputStream
         response.addHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(fileName, "utf-8"))

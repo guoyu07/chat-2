@@ -1,5 +1,6 @@
 package my.chat.controller
 
+import com.jfinal.aop.Clear
 import com.jfinal.core.Controller
 import my.chat.common.Constants
 
@@ -14,6 +15,7 @@ import my.chat.common.Constants
  * *
  * @date ${date} ${time}
  */
+@Clear
 class IndexController : Controller() {
 
     fun index() {

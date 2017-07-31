@@ -1,5 +1,6 @@
 package my.chat.controller
 
+import com.jfinal.aop.Clear
 import com.jfinal.core.Controller
 import my.chat.common.Constants
 import my.chat.common.ViewConstants
@@ -23,6 +24,7 @@ import java.util.Date
  * *
  * @date ${date} ${time}
  */
+@Clear
 class APIController : Controller() {
 
     private var url: URL? = null

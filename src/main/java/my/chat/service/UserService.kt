@@ -32,7 +32,7 @@ class UserService {
 
     }
 
-    fun login(user: User, username: String): User {
+    fun login(user: User, username: String): User? {
         user.setPassword(SecureUtil.md5(user.password))
         val sb = StringBuffer()
         sb.append("select * from user where password = '${user.password}' and")

@@ -169,19 +169,25 @@
 
     //发送消息
     function send() {
-        var message = $('#message');
-        auth.msg = message.val();
-        var who = $('li[class="active"]').children('a').attr('href');
-        if(who == '#home'){
-            auth.to = '';
-            auth.toEmail = '';
-            websocket.send(getMsg());
-        }else{ // 发送给其他人
-            var to = $('li[class="active"]').children('a').attr('href');
-            var toEmail = $.trim($('li[class="active"]').children('a').text());
-            auth.to = to.substring(1,to.length);
-            auth.toEmail = toEmail;
-            websocket.send(getMsg());
+        if('${sessionScope.loginUser}' != '') {
+            var message = $('#message');
+            auth.msg = message.val();
+            var who = $('li[class="active"]').children('a').attr('href');
+            if (who == '#home') {
+                auth.to = '';
+                auth.toEmail = '';
+                websocket.send(getMsg());
+            } else { // 发送给其他人
+                var to = $('li[class="active"]').children('a').attr('href');
+                var toEmail = $.trim($('li[class="active"]').children('a').text());
+                auth.to = to.substring(1, to.length);
+                auth.toEmail = toEmail;
+                websocket.send(getMsg());
+            }
+        }else{
+            layer.msg('登录后才可以发送消息哦', function(){
+                location.href = '/user/login';
+            });
         }
         message.val('');
     }

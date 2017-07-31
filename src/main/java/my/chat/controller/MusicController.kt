@@ -27,13 +27,13 @@ import java.util.*
  * *
  * @date ${date} ${time}
  */
+@Clear
 class MusicController : Controller() {
 
     companion object {
         internal var musicService = MusicService()
     }
 
-    @Clear
     @Throws(UnsupportedEncodingException::class)
     fun listSongs() {
         val pageNumber = getPara("p")

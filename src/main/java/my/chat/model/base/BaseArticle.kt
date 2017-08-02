@@ -64,4 +64,27 @@ abstract class BaseArticle<M : BaseArticle<M>> : Model<M>(), IBean {
     val authorName: String?
         get() = get("authorName")
 
+    fun setDesc(desc: String?): M {
+        set("desc", desc)
+        return this as M
+    }
+
+    val desc: String?
+        get() = get("desc")
+
+    fun setReadNum(readNum: Int?): M {
+        set("readNum", readNum)
+        return this as M
+    }
+
+    val readNum: Int?
+        get() = get<Int>("readNum")
+
+    fun setComments(comments: Int?): M {
+        set("comments", comments)
+        return this as M
+    }
+
+    val comments: Int?
+        get() = get<Int>("comments")
 }

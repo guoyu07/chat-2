@@ -14,6 +14,5 @@ package my.chat.common
 object MusicConstants {
 
 
-    val SONGS_PAGE = "songsPage"
     val QUERY_NAME = "queryName"
 }

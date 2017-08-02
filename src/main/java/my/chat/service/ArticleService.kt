@@ -20,7 +20,7 @@ class ArticleService {
     fun list(p: Int, size: Int, id: Int?): Page<Article>? {
         val sqlPrifix = "SELECT *"
         val name = if (Objects.isNull(id)) "" else " WHERE authorId=" + id
-        val sqlSuffix = StringBuffer("FROM article $name ORDER BY pubtime DESC")
+        val sqlSuffix = StringBuffer("FROM article $name ORDER BY id DESC")
         return dao.paginate(p, size, sqlPrifix, sqlSuffix.toString())
     }
 

@@ -29,8 +29,7 @@ class ArticleController : Controller() {
     fun list() {
         val p = getParaToInt("p") ?: 1
         val articlePage = articleService.list(p, 10, null)
-        setAttr(Constants.TITLE, "文章列表")
-                .setAttr("way","list")
+        setAttr("way", "list")
                 .setAttr("page", articlePage)
                 .renderJsp("list.jsp")
     }
@@ -39,26 +38,28 @@ class ArticleController : Controller() {
         val p = getParaToInt("p") ?: 1
         val user: User = getSessionAttr(UserConstants.LOGIN_USER)
         val articlePage = articleService.list(p, 10, user.id)
-        setAttr(Constants.TITLE, "我的文章")
-                .setAttr("way","mylist")
+        setAttr("way", "mylist")
                 .setAttr("page", articlePage)
                 .renderJsp("list.jsp")
     }
 
-    @Clear
     fun add() {
         if (request.method.equals("GET", ignoreCase = true)) {
-            setAttr(Constants.TITLE, "写文章").renderJsp("add.jsp")
+            renderJsp("add.jsp")
         } else {
             val flag = getBean(Article::class.java, "article").setPubtime(Date()).save()
-            setAttr(Constants.TITLE, if (flag) "文章列表" else "写文章")
-                    .redirect(if (flag) "/article/list" else "/article/add")
+            redirect(if (flag) "/article/list" else "/article/add")
         }
     }
 
     fun detail() {
         article = articleService.detail(getParaToInt("id"))
-        setAttr(Constants.TITLE, article!!.title).setAttr("article", article).renderJsp("show.jsp")
+        // 已阅读数量+1
+        article!!.setReadNum(article!!.readNum!!.toInt()+1).update()
+        setAttr("article", article)
+                .setAttr("way",getPara("way"))
+                .setAttr("p",getPara("p"))
+                .renderJsp("show.jsp")
     }
 
 }

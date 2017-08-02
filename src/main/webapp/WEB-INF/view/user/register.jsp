@@ -1,182 +1,89 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Administrator
+  Date: 2017/8/1
+  Time: 14:25
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="${pageContext.request.contextPath}/header.jsp" flush="true"/>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<style type="text/css">
-    .form-bg {
-        background: #00b4ef;
-    }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 - chat</title>
+    <meta name="keywords" content="chat">
+    <meta name="description" content="chat">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="${pageContext.request.contextPath}/static/css/bootstrap.min.css-v=3.3.5.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static/css/font-awesome.min.css-v=4.4.0.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static/css/animate.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static/css/style.min.css-v=4.0.0.css" rel="stylesheet">
+    <%--<base target="_blank">--%>
+    <script>if (window.top !== window.self) {
+        window.top.location = window.location;
+    }</script>
+</head>
 
-    .form-horizontal {
-        background: #fff;
-        padding-bottom: 40px;
-        border-radius: 15px;
-        text-align: center;
-    }
-
-    .form-horizontal .heading {
-        display: block;
-        font-size: 35px;
-        font-weight: 700;
-        padding: 35px 0;
-        border-bottom: 1px solid #f0f0f0;
-        margin-bottom: 30px;
-    }
-
-    .form-horizontal .form-group {
-        padding: 0 40px;
-        margin: 0 0 25px 0;
-        position: relative;
-    }
-
-    .form-horizontal .form-control {
-        background: #f0f0f0;
-        border: none;
-        border-radius: 20px;
-        box-shadow: none;
-        padding: 0 20px 0 45px;
-        height: 40px;
-        transition: all 0.3s ease 0s;
-    }
-
-    .form-horizontal .form-control:focus {
-        background: #e0e0e0;
-        box-shadow: none;
-        outline: 0 none;
-    }
-
-    .form-horizontal .form-group i {
-        position: absolute;
-        top: 12px;
-        left: 60px;
-        font-size: 17px;
-        color: #c8c8c8;
-        transition: all 0.5s ease 0s;
-    }
-
-    .form-horizontal .form-control:focus + i {
-        color: #00b4ef;
-    }
-
-    .form-horizontal .fa-question-circle {
-        display: inline-block;
-        position: absolute;
-        top: 12px;
-        right: 60px;
-        font-size: 20px;
-        color: #808080;
-        transition: all 0.5s ease 0s;
-    }
-
-    .form-horizontal .fa-question-circle:hover {
-        color: #000;
-    }
-
-    .form-horizontal .main-checkbox {
-        float: left;
-        width: 20px;
-        height: 20px;
-        background: #11a3fc;
-        border-radius: 50%;
-        position: relative;
-        margin: 5px 0 0 5px;
-        border: 1px solid #11a3fc;
-    }
-
-    .form-horizontal .main-checkbox label {
-        width: 20px;
-        height: 20px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        cursor: pointer;
-    }
-
-    .form-horizontal .main-checkbox label:after {
-        content: "";
-        width: 10px;
-        height: 5px;
-        position: absolute;
-        top: 5px;
-        left: 4px;
-        border: 3px solid #fff;
-        border-top: none;
-        border-right: none;
-        background: transparent;
-        opacity: 0;
-        -webkit-transform: rotate(-45deg);
-        transform: rotate(-45deg);
-    }
-
-    .form-horizontal .main-checkbox input[type=checkbox] {
-        visibility: hidden;
-    }
-
-    .form-horizontal .main-checkbox input[type=checkbox]:checked + label:after {
-        opacity: 1;
-    }
-
-    .form-horizontal .text {
-        float: left;
-        margin-left: 7px;
-        line-height: 20px;
-        padding-top: 5px;
-        text-transform: capitalize;
-    }
-
-    .form-horizontal .btn {
-        float: right;
-        font-size: 14px;
-        color: #fff;
-        background: #00b4ef;
-        border-radius: 30px;
-        padding: 10px 25px;
-        border: none;
-        text-transform: capitalize;
-        transition: all 0.5s ease 0s;
-    }
-
-    @media only screen and (max-width: 479px) {
-        .form-horizontal .form-group {
-            padding: 0 25px;
-        }
-
-        .form-horizontal .form-group i {
-            left: 45px;
-        }
-
-        .form-horizontal .btn {
-            padding: 10px 20px;
-        }
-    }
-</style>
-<div class="container">
-    <div class="row">
-        <div class="col-md-offset-3 col-md-6">
-            <form class="form-horizontal" action="/user/register" method="post" id="regForm">
-                <span class="heading">用户注册</span>
-                <div class="form-group">
-                    <input type="email" class="form-control" id="email" name="user.email"/>
-                    <i class="fa fa-user"></i>
-                    <div id="emailMsg" style="color: dodgerblue;">${regErrMsg}</div>
-                </div>
-                <div class="form-group help">
-                    <input type="password" class="form-control" id="password" name="user.password" placeholder="密码"/>
-                    <i class="fa fa-lock"></i>
-                    <a href="#" class="fa fa-question-circle"></a>
-                    <div id="passwordMsg" style="color: dodgerblue;"></div>
-                </div>
-                <div class="form-group">
-                    <div class="main-checkbox">
-                        <input type="checkbox" value="None" id="checkbox1" name="check"/>
-                        <label for="checkbox1"></label>
-                    </div>
-                    <span class="text">Remember me</span>
-                    <button type="submit" class="btn btn-default">注册</button>
-                </div>
-            </form>
+<body class="gray-bg">
+<div class="middle-box text-center loginscreen   animated fadeInDown">
+    <div>
+        <div>
+            <h1 class="logo-name">chat</h1>
         </div>
+        <h3>创建一个chat新账户</h3>
+        <form class="m-t" id="regForm" role="form" action="/user/register" method="post">
+            <div class="form-group">
+                <input type="text" minlength="2" maxlength="4" class="form-control" name="user.nickname"
+                       placeholder="请输入您的姓名" required="">
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" name="user.email" placeholder="请输入您的邮箱" required="">
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" minlength="6" maxlength="16" class="form-control"
+                       name="user.password" placeholder="请输入您的密码" required="">
+            </div>
+            <div class="form-group">
+                <input type="password" id="repassword" minlength="6" maxlength="16" class="form-control"
+                       placeholder="请再次输入您的密码" required="">
+            </div>
+            <div class="form-group text-left">
+                <div class="checkbox i-checks">
+                    <label class="no-padding">
+                        <input type="checkbox" id="isCheck"><i></i> 我同意注册协议</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary block full-width m-b">注 册</button>
+            <p class="text-muted text-center">
+                <small>已经有账户了？</small>
+                <a href="/user/login">点此登录</a>
+            </p>
+        </form>
     </div>
 </div>
+<script src="${pageContext.request.contextPath}/static/js/jquery.min.js-v=2.1.4.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/bootstrap.min.js-v=3.3.5.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/plugins/iCheck/icheck.min.js"></script>
+<script src="${pageContext.request.contextPath}/layer/layer.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function () {
+        $(".i-checks").iCheck({checkboxClass: "icheckbox_square-green", radioClass: "iradio_square-green",})
+        if ('${regErrMsg}' != '') {
+            layer.msg('${regErrMsg}', {icon: 5, offset: '250px'});
+        }
+    });
+    $('form').submit(function () {
+        if ($('#password').val() != $('#repassword').val()) {
+            layer.msg('两次输入的密码不一致', {icon: 5, offset: '250px'});
+            return false;
+        }
+        if (!$('#isCheck').is(':checked')) {
+            layer.msg('请同意注册协议', {icon: 5, offset: '250px'});
+            return false;
+        }
+    })
+</script>
 </body>
 </html>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/user/register.js"></script>

@@ -29,7 +29,7 @@ object UserConstants {
 
     val ACCOUNT_NOT_ACTIVATED = "该账户还未激活"
 
-    val MAIL_HAS_EXISTS = "该邮箱已存在"
+    val MAIL_HAS_EXISTS = "该邮箱已被注册"
 
     val MAIL_ACTIVE_FAILED = "激活失败,请不要随意更改您的激活链接"
 

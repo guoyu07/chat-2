@@ -53,15 +53,18 @@ class UserController : Controller() {
     @Clear
     fun login() {
         if ("GET".equals(request.method, ignoreCase = true))
-            setAttr(UserConstants.LOGIN_ERR_MSG, getSessionAttr(UserConstants.NOT_LOGIN_ERR_MSG))
-                    .setAttr(UserConstants.USERNAME, getPara("email"))
+//            setAttr(UserConstants.LOGIN_ERR_MSG, getSessionAttr(UserConstants.NOT_LOGIN_ERR_MSG))
+            setAttr(UserConstants.USERNAME, getPara("email"))
                     .removeSessionAttr(UserConstants.NOT_LOGIN_ERR_MSG)
-                    .setAttr(Constants.TITLE, "login").renderJsp(ViewConstants.LOGIN)
+                    .setAttr(Constants.TITLE, "login")
+                    .renderJsp(ViewConstants.LOGIN)
         else {
             val username = getPara(UserConstants.USERNAME)
             user = userService.login(getBean(User::class.java), username)
             if (ObjectUtil.isNull(user)) {
-                setAttr(UserConstants.USERNAME, username).setAttr(UserConstants.LOGIN_ERR_MSG, UserConstants.USER_NOT_EXISTS).renderJsp(ViewConstants.LOGIN)
+                setAttr(UserConstants.USERNAME, username)
+                        .setAttr(UserConstants.LOGIN_ERR_MSG, UserConstants.USER_NOT_EXISTS)
+                        .renderJsp(ViewConstants.LOGIN)
             } else {
                 if (user!!.status == 1) {
                     // 是否勾选记录用户? wait
@@ -103,11 +106,18 @@ class UserController : Controller() {
 
     fun my() = setAttr(Constants.TITLE, "个人信息").renderJsp(ViewConstants.MYINFO)
 
-    // 上传头像
-    fun uploadPic() {
-        user = getSessionAttr<User>(UserConstants.LOGIN_USER)
-        val file = getFile(getPara("picSummary"))
-        redirect("/user/my")
+    // 修改头像
+    fun modifyAvatar() {
+        if ("GET".equals(request.method, ignoreCase = true)) {
+            renderJsp("modifyAvatar.jsp");
+        }
+    }
+
+    // 修改密码
+    fun modifyPwd() {
+        if ("GET".equals(request.method, ignoreCase = true)) {
+            renderJsp("modifyPwd.jsp")
+        }
     }
 
     fun update() {

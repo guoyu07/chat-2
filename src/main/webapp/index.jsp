@@ -7,16 +7,18 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <title> - chat</title>
     <meta name="keywords" content="chat">
     <meta name="description" content="chat">
     <!--[if lt IE 8]>
-    <meta http-equiv="refresh" content="0;ie.html" />
+    <meta http-equiv="refresh" content="0;ie.html"/>
     <![endif]-->
     <link rel="shortcut icon" href="favicon.ico">
     <link href="${pageContext.request.contextPath}/static/css/bootstrap.min.css-v=3.3.5.css" rel="stylesheet">
@@ -29,15 +31,16 @@
 <div id="wrapper">
     <!--左侧导航开始-->
     <nav class="navbar-default navbar-static-side" role="navigation">
-        <div class="nav-close"><i class="fa fa-times-circle"></i>
-        </div>
+        <div class="nav-close"><i class="fa fa-times-circle"></i></div>
         <div class="sidebar-collapse">
             <ul class="nav" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                         <span>
                             <c:if test="${sessionScope.loginUser.picSummary == null}">
-                                <img alt="image" class="img-circle" src="${pageContext.request.contextPath}/static/img/a3.jpg" width="64px" height="64px" />
+                                <img alt="image" class="img-circle"
+                                     src="${pageContext.request.contextPath}/static/img/a3.jpg" width="64px"
+                                     height="64px"/>
                             </c:if>
                             <c:if test="${sessionScope.loginUser.picSummary != null}">
                                 <img alt="image" class="img-circle" src="${sessionScope.loginUser.picSummary}"/>
@@ -45,7 +48,8 @@
                         </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
-                               <span class="block m-t-xs"><strong class="font-bold">${sessionScope.loginUser.nickname}</strong></span>
+                               <span class="block m-t-xs"><strong
+                                       class="font-bold">${sessionScope.loginUser.nickname}</strong></span>
                                 <span class="text-muted text-xs block">角色(未设置)<b class="caret"></b></span>
                                 </span>
                         </a>
@@ -56,15 +60,15 @@
                             </li>
                             <li><a class="J_menuItem" href="/user/modifyPwd">修改密码</a>
                             </li>
-                            <li><a class="J_menuItem" href="mailbox.html" tppabs="http://www.zi-han.net/theme/hplus/mailbox.html">信箱</a>
+                            <li><a class="J_menuItem" href="mailbox.html"
+                                   tppabs="http://www.zi-han.net/theme/hplus/mailbox.html">信箱</a>
                             </li>
                             <li class="divider"></li>
                             <li><a href="/user/exit">安全退出</a>
                             </li>
                         </ul>
                     </div>
-                    <div class="logo-element">chat
-                    </div>
+                    <div class="logo-element">chat</div>
                 </li>
                 <li>
                     <a href="#">
@@ -74,16 +78,20 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="index_v1.html" tppabs="http://www.zi-han.net/theme/hplus/index_v1.html" data-index="0">主页示例一</a>
+                            <a class="J_menuItem" href="index_v1.html"
+                               tppabs="http://www.zi-han.net/theme/hplus/index_v1.html" data-index="0">主页示例一</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="index_v2.html" tppabs="http://www.zi-han.net/theme/hplus/index_v2.html">主页示例二</a>
+                            <a class="J_menuItem" href="index_v2.html"
+                               tppabs="http://www.zi-han.net/theme/hplus/index_v2.html">主页示例二</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="index_v3.html" tppabs="http://www.zi-han.net/theme/hplus/index_v3.html">主页示例三</a>
+                            <a class="J_menuItem" href="index_v3.html"
+                               tppabs="http://www.zi-han.net/theme/hplus/index_v3.html">主页示例三</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="index_v4.html" tppabs="http://www.zi-han.net/theme/hplus/index_v4.html">主页示例四</a>
+                            <a class="J_menuItem" href="index_v4.html"
+                               tppabs="http://www.zi-han.net/theme/hplus/index_v4.html">主页示例四</a>
                         </li>
                         <li>
                             <a href="index_v5.html" target="_blank">主页示例五</a>
@@ -92,10 +100,12 @@
 
                 </li>
                 <li>
-                    <a class="J_menuItem" href="chat.jsp"><i class="fa fa-commenting-o"></i> <span class="nav-label">聊天室</span></a>
+                    <a class="J_menuItem" href="chat.jsp"><i class="fa fa-commenting-o"></i> <span
+                            class="nav-label">聊天室</span></a>
                 </li>
                 <li>
-                    <a class="J_menuItem" href="robot.jsp"><i class="fa fa-android"></i> <span class="nav-label">robot</span></a>
+                    <a class="J_menuItem" href="robot.jsp"><i class="fa fa-android"></i> <span
+                            class="nav-label">robot</span></a>
                 </li>
                 <li>
                     <a href="#">
@@ -137,13 +147,18 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="mailbox.html" tppabs="http://www.zi-han.net/theme/hplus/mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">信箱 </span><span class="label label-warning pull-right">16</span></a>
+                    <a href="mailbox.html" tppabs="http://www.zi-han.net/theme/hplus/mailbox.html"><i
+                            class="fa fa-envelope"></i> <span class="nav-label">信箱 </span><span
+                            class="label label-warning pull-right">16</span></a>
                     <ul class="nav nav-second-level">
-                        <li><a class="J_menuItem" href="mailbox.html" tppabs="http://www.zi-han.net/theme/hplus/mailbox.html">收件箱</a>
+                        <li><a class="J_menuItem" href="mailbox.html"
+                               tppabs="http://www.zi-han.net/theme/hplus/mailbox.html">收件箱</a>
                         </li>
-                        <li><a class="J_menuItem" href="mail_detail.html" tppabs="http://www.zi-han.net/theme/hplus/mail_detail.html">查看邮件</a>
+                        <li><a class="J_menuItem" href="mail_detail.html"
+                               tppabs="http://www.zi-han.net/theme/hplus/mail_detail.html">查看邮件</a>
                         </li>
-                        <li><a class="J_menuItem" href="mail_compose.html" tppabs="http://www.zi-han.net/theme/hplus/mail_compose.html">写信</a>
+                        <li><a class="J_menuItem" href="mail_compose.html"
+                               tppabs="http://www.zi-han.net/theme/hplus/mail_compose.html">写信</a>
                         </li>
                     </ul>
                 </li>
@@ -155,10 +170,13 @@
     <div id="page-wrapper" class="gray-bg dashbard-1">
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-                <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-                    <form role="search" class="navbar-form-custom" method="post" action="http://www.zi-han.net/theme/hplus/search_results.html">
+                <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i
+                        class="fa fa-bars"></i> </a>
+                    <form role="search" class="navbar-form-custom" method="post"
+                          action="http://www.zi-han.net/theme/hplus/search_results.html">
                         <div class="form-group">
-                            <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search" id="top-search">
+                            <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search"
+                                   id="top-search">
                         </div>
                     </form>
                 </div>
@@ -170,8 +188,10 @@
                         <ul class="dropdown-menu dropdown-messages">
                             <li class="m-t-xs">
                                 <div class="dropdown-messages-box">
-                                    <a href="profile.html" tppabs="http://www.zi-han.net/theme/hplus/profile.html" class="pull-left">
-                                        <img alt="image" class="img-circle" src="img/a7.jpg" tppabs="http://www.zi-han.net/theme/hplus/img/a7.jpg">
+                                    <a href="profile.html" tppabs="http://www.zi-han.net/theme/hplus/profile.html"
+                                       class="pull-left">
+                                        <img alt="image" class="img-circle" src="img/a7.jpg"
+                                             tppabs="http://www.zi-han.net/theme/hplus/img/a7.jpg">
                                     </a>
                                     <div class="media-body">
                                         <small class="pull-right">46小时前</small>
@@ -184,8 +204,10 @@
                             <li class="divider"></li>
                             <li>
                                 <div class="dropdown-messages-box">
-                                    <a href="profile.html" tppabs="http://www.zi-han.net/theme/hplus/profile.html" class="pull-left">
-                                        <img alt="image" class="img-circle" src="img/a4.jpg" tppabs="http://www.zi-han.net/theme/hplus/img/a4.jpg">
+                                    <a href="profile.html" tppabs="http://www.zi-han.net/theme/hplus/profile.html"
+                                       class="pull-left">
+                                        <img alt="image" class="img-circle" src="img/a4.jpg"
+                                             tppabs="http://www.zi-han.net/theme/hplus/img/a4.jpg">
                                     </a>
                                     <div class="media-body ">
                                         <small class="pull-right text-navy">25小时前</small>
@@ -198,7 +220,8 @@
                             <li class="divider"></li>
                             <li>
                                 <div class="text-center link-block">
-                                    <a class="J_menuItem" href="mailbox.html" tppabs="http://www.zi-han.net/theme/hplus/mailbox.html">
+                                    <a class="J_menuItem" href="mailbox.html"
+                                       tppabs="http://www.zi-han.net/theme/hplus/mailbox.html">
                                         <i class="fa fa-envelope"></i> <strong> 查看所有消息</strong>
                                     </a>
                                 </div>
@@ -230,7 +253,8 @@
                             <li class="divider"></li>
                             <li>
                                 <div class="text-center link-block">
-                                    <a class="J_menuItem" href="notifications.html" tppabs="http://www.zi-han.net/theme/hplus/notifications.html">
+                                    <a class="J_menuItem" href="notifications.html"
+                                       tppabs="http://www.zi-han.net/theme/hplus/notifications.html">
                                         <strong>查看所有 </strong>
                                         <i class="fa fa-angle-right"></i>
                                     </a>
@@ -239,7 +263,8 @@
                         </ul>
                     </li>
                     <li class="hidden-xs">
-                        <a href="index_v1.html" tppabs="http://www.zi-han.net/theme/hplus/index_v1.html" class="J_menuItem" data-index="0"><i class="fa fa-cart-arrow-down"></i> 购买</a>
+                        <a href="index_v1.html" tppabs="http://www.zi-han.net/theme/hplus/index_v1.html"
+                           class="J_menuItem" data-index="0"><i class="fa fa-cart-arrow-down"></i> 购买</a>
                     </li>
                     <li class="dropdown hidden-xs">
                         <a class="right-sidebar-toggle" aria-expanded="false">
@@ -276,7 +301,9 @@
             <a href="/user/exit" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
         </div>
         <div class="row J_mainContent" id="content-main">
-            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="index_v1.html-v=4.0.htm" tppabs="http://www.zi-han.net/theme/hplus/index_v1.html?v=4.0" frameborder="0" data-id="index_v1.html" seamless></iframe>
+            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="index_v1.html-v=4.0.htm"
+                    tppabs="http://www.zi-han.net/theme/hplus/index_v1.html?v=4.0" frameborder="0"
+                    data-id="index_v1.html" seamless></iframe>
         </div>
         <div class="footer">
             <div class="pull-right">&copy; 2017 - 2027 <a href="">lyu test</a>
@@ -308,7 +335,7 @@
             <div class="tab-content">
                 <div id="tab-1" class="tab-pane active">
                     <div class="sidebar-title">
-                        <h3> <i class="fa fa-comments-o"></i> 主题设置</h3>
+                        <h3><i class="fa fa-comments-o"></i> 主题设置</h3>
                         <small><i class="fa fa-tim"></i> 你可以从这里选择和预览主题的布局和样式，这些设置会被保存在本地，下次打开的时候会直接应用这些设置。</small>
                     </div>
                     <div class="skin-setttings">
@@ -317,7 +344,8 @@
                             <span>收起左侧菜单</span>
                             <div class="switch">
                                 <div class="onoffswitch">
-                                    <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="collapsemenu">
+                                    <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox"
+                                           id="collapsemenu">
                                     <label class="onoffswitch-label" for="collapsemenu">
                                         <span class="onoffswitch-inner"></span>
                                         <span class="onoffswitch-switch"></span>
@@ -330,7 +358,8 @@
 
                             <div class="switch">
                                 <div class="onoffswitch">
-                                    <input type="checkbox" name="fixednavbar" class="onoffswitch-checkbox" id="fixednavbar">
+                                    <input type="checkbox" name="fixednavbar" class="onoffswitch-checkbox"
+                                           id="fixednavbar">
                                     <label class="onoffswitch-label" for="fixednavbar">
                                         <span class="onoffswitch-inner"></span>
                                         <span class="onoffswitch-switch"></span>
@@ -345,7 +374,8 @@
 
                             <div class="switch">
                                 <div class="onoffswitch">
-                                    <input type="checkbox" name="boxedlayout" class="onoffswitch-checkbox" id="boxedlayout">
+                                    <input type="checkbox" name="boxedlayout" class="onoffswitch-checkbox"
+                                           id="boxedlayout">
                                     <label class="onoffswitch-label" for="boxedlayout">
                                         <span class="onoffswitch-inner"></span>
                                         <span class="onoffswitch-switch"></span>
@@ -380,7 +410,7 @@
                 <div id="tab-2" class="tab-pane">
 
                     <div class="sidebar-title">
-                        <h3> <i class="fa fa-comments-o"></i> 最新通知</h3>
+                        <h3><i class="fa fa-comments-o"></i> 最新通知</h3>
                         <small><i class="fa fa-tim"></i> 您当前有10条未读信息</small>
                     </div>
 
@@ -389,7 +419,8 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="pull-left text-center">
-                                    <img alt="image" class="img-circle message-avatar" src="img/a1.jpg" tppabs="http://www.zi-han.net/theme/hplus/img/a1.jpg">
+                                    <img alt="image" class="img-circle message-avatar" src="img/a1.jpg"
+                                         tppabs="http://www.zi-han.net/theme/hplus/img/a1.jpg">
 
                                     <div class="m-t-xs">
                                         <i class="fa fa-star text-warning"></i>
@@ -407,7 +438,8 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="pull-left text-center">
-                                    <img alt="image" class="img-circle message-avatar" src="img/a2.jpg" tppabs="http://www.zi-han.net/theme/hplus/img/a2.jpg">
+                                    <img alt="image" class="img-circle message-avatar" src="img/a2.jpg"
+                                         tppabs="http://www.zi-han.net/theme/hplus/img/a2.jpg">
                                 </div>
                                 <div class="media-body">
                                     HCY48之音乐大魔王会员专属皮肤已上线，快来一键换装拥有他，宣告你对华晨宇的爱吧！
@@ -419,7 +451,8 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="pull-left text-center">
-                                    <img alt="image" class="img-circle message-avatar" src="img/a3.jpg" tppabs="http://www.zi-han.net/theme/hplus/img/a3.jpg">
+                                    <img alt="image" class="img-circle message-avatar" src="img/a3.jpg"
+                                         tppabs="http://www.zi-han.net/theme/hplus/img/a3.jpg">
 
                                     <div class="m-t-xs">
                                         <i class="fa fa-star text-warning"></i>
@@ -437,7 +470,8 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="pull-left text-center">
-                                    <img alt="image" class="img-circle message-avatar" src="img/a4.jpg" tppabs="http://www.zi-han.net/theme/hplus/img/a4.jpg">
+                                    <img alt="image" class="img-circle message-avatar" src="img/a4.jpg"
+                                         tppabs="http://www.zi-han.net/theme/hplus/img/a4.jpg">
                                 </div>
 
                                 <div class="media-body">
@@ -450,7 +484,8 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="pull-left text-center">
-                                    <img alt="image" class="img-circle message-avatar" src="img/a8.jpg" tppabs="http://www.zi-han.net/theme/hplus/img/a8.jpg">
+                                    <img alt="image" class="img-circle message-avatar" src="img/a8.jpg"
+                                         tppabs="http://www.zi-han.net/theme/hplus/img/a8.jpg">
                                 </div>
                                 <div class="media-body">
 
@@ -463,7 +498,8 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="pull-left text-center">
-                                    <img alt="image" class="img-circle message-avatar" src="img/a7.jpg" tppabs="http://www.zi-han.net/theme/hplus/img/a7.jpg">
+                                    <img alt="image" class="img-circle message-avatar" src="img/a7.jpg"
+                                         tppabs="http://www.zi-han.net/theme/hplus/img/a7.jpg">
                                 </div>
                                 <div class="media-body">
                                     这哥们的新视频又来了，创意杠杠滴，帅炸了！
@@ -475,7 +511,8 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="pull-left text-center">
-                                    <img alt="image" class="img-circle message-avatar" src="img/a3.jpg" tppabs="http://www.zi-han.net/theme/hplus/img/a3.jpg">
+                                    <img alt="image" class="img-circle message-avatar" src="img/a3.jpg"
+                                         tppabs="http://www.zi-han.net/theme/hplus/img/a3.jpg">
 
                                     <div class="m-t-xs">
                                         <i class="fa fa-star text-warning"></i>
@@ -493,7 +530,8 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="pull-left text-center">
-                                    <img alt="image" class="img-circle message-avatar" src="img/a4.jpg" tppabs="http://www.zi-han.net/theme/hplus/img/a4.jpg">
+                                    <img alt="image" class="img-circle message-avatar" src="img/a4.jpg"
+                                         tppabs="http://www.zi-han.net/theme/hplus/img/a4.jpg">
                                 </div>
                                 <div class="media-body">
                                     我发起了一个投票 【你认为下午大盘会翻红吗？】
@@ -508,7 +546,7 @@
                 <div id="tab-3" class="tab-pane">
 
                     <div class="sidebar-title">
-                        <h3> <i class="fa fa-cube"></i> 最新任务</h3>
+                        <h3><i class="fa fa-cube"></i> 最新任务</h3>
                         <small><i class="fa fa-tim"></i> 您当前有14个任务，10个已完成</small>
                     </div>
 
@@ -591,12 +629,9 @@
                                 </div>
                             </a>
                         </li>
-
                     </ul>
-
                 </div>
             </div>
-
         </div>
     </div>
     <!--右侧边栏结束-->
@@ -606,16 +641,16 @@
         <div class="heading" draggable="true">
             <small class="chat-date pull-right">
                 2015.9.1
-            </small> 与 Beau-zihan 聊天中
+            </small>
+            与 Beau-zihan 聊天中
         </div>
-
         <div class="content">
-
             <div class="left">
                 <div class="author-name">
-                    Beau-zihan <small class="chat-date">
-                    10:02
-                </small>
+                    Beau-zihan
+                    <small class="chat-date">
+                        10:02
+                    </small>
                 </div>
                 <div class="chat-message active">
                     你好
@@ -673,8 +708,6 @@
                     <br>
                 </div>
             </div>
-
-
         </div>
         <div class="form-chat">
             <div class="input-group input-group-sm">
@@ -683,23 +716,21 @@
                 </button> </span>
             </div>
         </div>
-
     </div>
     <div id="small-chat">
         <span class="badge badge-warning pull-right">5</span>
         <a class="open-small-chat">
             <i class="fa fa-comments"></i>
-
         </a>
     </div>
 </div>
-<script src="${pageContext.request.contextPath}/static/js/jquery.min.js-v=2.1.4.js" tppabs="http://www.zi-han.net/theme/hplus/js/jquery.min.js?v=2.1.4"></script>
-<script src="${pageContext.request.contextPath}/static/js/bootstrap.min.js-v=3.3.5.js" tppabs="http://www.zi-han.net/theme/hplus/js/bootstrap.min.js?v=3.3.5"></script>
-<script src="${pageContext.request.contextPath}/static/js/plugins/metisMenu/jquery.metisMenu.js" tppabs="http://www.zi-han.net/theme/hplus/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="${pageContext.request.contextPath}/static/js/plugins/slimscroll/jquery.slimscroll.min.js" tppabs="http://www.zi-han.net/theme/hplus/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="${pageContext.request.contextPath}/static/js/plugins/layer/layer.min.js" tppabs="http://www.zi-han.net/theme/hplus/js/plugins/layer/layer.min.js"></script>
-<script src="${pageContext.request.contextPath}/static/js/hplus.min.js-v=4.0.0.js" tppabs="http://www.zi-han.net/theme/hplus/js/hplus.min.js?v=4.0.0"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/contabs.min.js" tppabs="http://www.zi-han.net/theme/hplus/js/contabs.min.js"></script>
-<script src="${pageContext.request.contextPath}/static/js/plugins/pace/pace.min.js" tppabs="http://www.zi-han.net/theme/hplus/js/plugins/pace/pace.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/jquery.min.js-v=2.1.4.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/bootstrap.min.js-v=3.3.5.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/plugins/layer/layer.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/hplus.min.js-v=4.0.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/contabs.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/plugins/pace/pace.min.js"></script>
 </body>
 </html>

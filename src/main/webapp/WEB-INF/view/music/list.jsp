@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.Date" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2017/8/1
@@ -7,6 +7,7 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -61,6 +62,7 @@
     </style>
 </head>
 <body class="gray-bg">
+<jsp:useBean id="dateValue" class="java.util.Date" />
 <div class="wrapper wrapper-content animated fadeInRight" style="height: 100%;">
     <div class="row" style="height: 100%;">
         <div class="col-sm-12" style="height: 100%;">
@@ -131,7 +133,10 @@
                                     </a>
                                 </td>
                                 <td><a href="${s.mvurl}" target="_blank">${s.mvurl}</a></td>
-                                <td>${s.duration}</td>
+                                <td>
+                                    <jsp:setProperty name="dateValue" property="time" value="${s.duration}"/>
+                                    <fmt:formatDate value="${dateValue}" pattern="mm:ss"/>
+                                </td>
                                 <td><a href="${s.albumurl}" target="_blank">
                         <span class="albumSpan1">
                         <c:if test="${fn:contains(s.albumname,queryName)}">
@@ -244,7 +249,6 @@
         if (songs == true) baseUrl += '&songs=true';
         if (album == true) baseUrl += '&album=true';
         if (singers == true) baseUrl += '&singers=true';
-        alert(baseUrl)
         location.href = baseUrl;
     }
 

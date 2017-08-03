@@ -52,7 +52,7 @@
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li><a class="J_menuItem" href="/user/modifyAvatar">修改头像</a>
                             </li>
-                            <li><a class="J_menuItem" href="profile.html" tppabs="http://www.zi-han.net/theme/hplus/profile.html">个人资料</a>
+                            <li><a class="J_menuItem" href="/user/profile">个人资料</a>
                             </li>
                             <li><a class="J_menuItem" href="/user/modifyPwd">修改密码</a>
                             </li>
@@ -273,13 +273,13 @@
                     </li>
                 </ul>
             </div>
-            <a href="WEB-INF/view/user/login.jsp" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+            <a href="/user/exit" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
         </div>
         <div class="row J_mainContent" id="content-main">
             <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="index_v1.html-v=4.0.htm" tppabs="http://www.zi-han.net/theme/hplus/index_v1.html?v=4.0" frameborder="0" data-id="index_v1.html" seamless></iframe>
         </div>
         <div class="footer">
-            <div class="pull-right">&copy; 2014-2015 <a href="javascript:if(confirm(%27http://www.zi-han.net/  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27http://www.zi-han.net/%27" tppabs="http://www.zi-han.net/" target="_blank">zihan's blog</a>
+            <div class="pull-right">&copy; 2017 - 2027 <a href="">lyu test</a>
             </div>
         </div>
     </div>

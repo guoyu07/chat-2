@@ -39,6 +39,7 @@ class Config : JFinalConfig() {
         PropKit.use("config.txt")
         constants.devMode = PropKit.getBoolean("devMode", false)!!
         constants.setError404View("/WEB-INF/view/err/404.html")
+        constants.setError500View("/WEB-INF/view/err/500.html")
         constants.encoding = "UTF-8"
     }
 

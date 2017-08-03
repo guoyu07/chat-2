@@ -26,7 +26,6 @@
     <link href="${pageContext.request.contextPath}/static/css/plugins/steps/jquery.steps.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/css/animate.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/css/style.min.css-v=4.0.0.css" rel="stylesheet">
-    <base target="_blank">
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -42,14 +41,15 @@
                     </h2>
                     <p>
                     </p>
-                    <form id="form" action="http://www.zi-han.net/theme/hplus/form_wizard.html#" class="wizard-big">
+                    <form id="form" action="/user/modifyPwd" method="post" class="wizard-big">
                         <h1>当前密码</h1>
                         <fieldset>
                             <h2>当前密码</h2>
                             <div class="row">
                                 <div class="col-sm-8">
                                     <div class="form-group">
-                                        <input id="oldPassword" name="password" type="password" class="form-control required">
+                                        <input id="oldPassword" name="oldPassword" type="password"
+                                               class="form-control required" minlength="6" maxlength="16">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -68,11 +68,13 @@
                                 <div class="col-sm-8">
                                     <div class="form-group">
                                         <label>密码 *</label>
-                                        <input id="password" name="password" type="password" class="form-control required">
+                                        <input id="password" name="password" type="password"
+                                               class="form-control required" minlength="6" maxlength="16">
                                     </div>
                                     <div class="form-group">
                                         <label>确认密码 *</label>
-                                        <input id="confirm" name="confirm" type="password" class="form-control required">
+                                        <input id="confirm" name="confirm" type="password"
+                                               class="form-control required" minlength="6" maxlength="16">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -102,13 +104,94 @@
     </div>
 </div>
 <script src="${pageContext.request.contextPath}/static/js/jquery.min.js-v=2.1.4.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/jquery.md5.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/bootstrap.min.js-v=3.3.5.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/content.min.js-v=1.0.0.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/plugins/staps/jquery.steps.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/plugins/validate/jquery.validate.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/plugins/validate/messages_zh.min.js"></script>
+<script src="${pageContext.request.contextPath}/layer/layer.js" type="text/javascript"></script>
 <script>
-    $(document).ready(function(){$("#wizard").steps();$("#form").steps({bodyTag:"fieldset",onStepChanging:function(event,currentIndex,newIndex){if(currentIndex>newIndex){return true}if(newIndex===3&&Number($("#age").val())<18){return false}var form=$(this);if(currentIndex<newIndex){$(".body:eq("+newIndex+") label.error",form).remove();$(".body:eq("+newIndex+") .error",form).removeClass("error")}form.validate().settings.ignore=":disabled,:hidden";return form.valid()},onStepChanged:function(event,currentIndex,priorIndex){if(currentIndex===2&&Number($("#age").val())>=18){$(this).steps("next")}if(currentIndex===2&&priorIndex===3){$(this).steps("previous")}},onFinishing:function(event,currentIndex){var form=$(this);form.validate().settings.ignore=":disabled";return form.valid()},onFinished:function(event,currentIndex){var form=$(this);form.submit()}}).validate({errorPlacement:function(error,element){element.before(error)},rules:{confirm:{equalTo:"#password"}}})});
+    $(document).ready(function () {
+
+        if('${modifyPwdMsg}' != ''){
+            layer.msg('${modifyPwdMsg}', {icon: 6, offset: '200px'});
+        }
+
+        $("#wizard").steps();
+        $("#form").steps({
+            bodyTag: "fieldset", onStepChanging: function (event, currentIndex, newIndex) {
+                if (currentIndex > newIndex) {
+                    return true
+                }
+                if (newIndex === 3 && Number($("#age").val()) < 18) {
+                    return false
+                }
+                var form = $(this);
+                if (currentIndex < newIndex) {
+                    $(".body:eq(" + newIndex + ") label.error", form).remove();
+                    $(".body:eq(" + newIndex + ") .error", form).removeClass("error")
+                }
+                form.validate().settings.ignore = ":disabled,:hidden";
+                if(form.valid()){
+                    if(currentIndex == 0){
+                        var password = $.md5($('#oldPassword').val());
+                        if('${sessionScope.loginUser.password}' != password){
+                            $('#oldPassword').val('');
+                            layer.msg('您输入的密码不正确,请重新输入', {icon: 5, offset: '200px'});
+                            return false;
+                        }
+                    }
+                    if(currentIndex == 1){
+                        var password = $.md5($('#password').val());
+                        if('${sessionScope.loginUser.password}' == password){
+                            $('#password').val('');
+                            layer.msg('新密码不能与当前密码相同,请重新输入', {icon: 5, offset: '200px'});
+                            return false;
+                        }
+                    }
+                }
+                return form.valid()
+            }, onStepChanged: function (event, currentIndex, priorIndex) {
+                if (currentIndex === 2 && Number($("#age").val()) >= 18) {
+                    $(this).steps("next")
+                }
+                if (currentIndex === 2 && priorIndex === 3) {
+                    $(this).steps("previous")
+                }
+            }, onFinishing: function (event, currentIndex) {
+                var form = $(this);
+                form.validate().settings.ignore = ":disabled";
+                if(form.valid()){
+                    if(currentIndex == 0){
+                        var password = $.md5($('#oldPassword').val());
+                        if('${sessionScope.loginUser.password}' != password){
+                            $('#oldPassword').val('');
+                            layer.msg('您输入的密码不正确,请重新输入', {icon: 5, offset: '200px'});
+                            return false;
+                        }
+                    }
+                    if(currentIndex == 1){
+                        var password = $.md5($('#password').val());
+                        if('${sessionScope.loginUser.password}' == password){
+                            $('#password').val('');
+                            $('#confirm').val('');
+                            layer.msg('新密码不能与当前密码相同,请重新输入', {icon: 5, offset: '200px'});
+                            return false;
+                        }
+                    }
+                }
+                return form.valid()
+            }, onFinished: function (event, currentIndex) {
+                var form = $(this);
+                form.submit()
+            }
+        }).validate({
+            errorPlacement: function (error, element) {
+                element.before(error)
+            }, rules: {confirm: {equalTo: "#password"}}
+        })
+    });
 </script>
 </body>
 </html>

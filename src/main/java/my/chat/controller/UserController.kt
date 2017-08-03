@@ -4,6 +4,7 @@ import com.jfinal.aop.Clear
 import com.jfinal.core.Controller
 import com.jfinal.upload.UploadFile
 import com.jfplugin.mail.MailKit
+import com.xiaoleilu.hutool.crypto.SecureUtil
 import com.xiaoleilu.hutool.util.ObjectUtil
 import my.chat.common.Constants
 import my.chat.plugin.Mail
@@ -104,32 +105,41 @@ class UserController : Controller() {
 
     fun exit() = removeSessionAttr(UserConstants.LOGIN_USER).redirect("/")
 
-    fun my() = setAttr(Constants.TITLE, "个人信息").renderJsp(ViewConstants.MYINFO)
+    fun profile() = setAttr("way", "my").renderJsp(ViewConstants.PROFILE)
+
+    // 修改个人信息
+    fun modifyInfo() {
+        if ("POST".equals(request.method, ignoreCase = true)) {
+            user = getSessionAttr(UserConstants.LOGIN_USER)
+            val modifyUser = getBean(User::class.java)
+            user!!.setGender(modifyUser.gender)
+                    .setDescription(modifyUser.description)
+                    .setAddressDetails(modifyUser.addressDetails)
+                    .update()
+            setSessionAttr(UserConstants.LOGIN_USER, user)
+                    .setAttr("way", "my")
+                    .renderJsp(ViewConstants.PROFILE)
+        }
+    }
 
     // 修改头像
     fun modifyAvatar() {
         if ("GET".equals(request.method, ignoreCase = true)) {
-            renderJsp("modifyAvatar.jsp");
+            renderJsp("modifyAvatar.jsp")
         }
     }
 
     // 修改密码
     fun modifyPwd() {
-        if ("GET".equals(request.method, ignoreCase = true)) {
-            renderJsp("modifyPwd.jsp")
+        if ("POST".equals(request.method, ignoreCase = true)) {
+            user = getSessionAttr(UserConstants.LOGIN_USER)
+            user!!.setPassword(SecureUtil.md5(getPara("password"))).update()
+            setSessionAttr(UserConstants.LOGIN_USER, user)
+                    .setAttr("modifyPwdMsg","修改密码成功")
+                    .renderJsp(ViewConstants.MODIFY_PWD)
+        } else {
+            renderJsp(ViewConstants.MODIFY_PWD)
         }
-    }
-
-    fun update() {
-        user = getModel(User::class.java)
-        user!!.update()
-        setSessionAttr(UserConstants.LOGIN_USER, user!!.findById(user!!.id)).redirect("/user/my")
-    }
-
-    fun updateAjax() {
-        // 设置session user
-        user = getModel(User::class.java)
-        setAttr(UserConstants.AJAX_ERR_MSG, user!!.update()).setSessionAttr(UserConstants.LOGIN_USER, user!!.findById(user!!.id)).renderJson()
     }
 
     val url: String

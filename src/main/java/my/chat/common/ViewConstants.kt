@@ -13,15 +13,15 @@ object ViewConstants {
 
     val PHONE = "phone.jsp"
 
-    val SONGS = "songs.jsp"
-
-    val MYINFO = "myinfo.jsp"
+    val PROFILE = "profile.jsp"
 
     val WEATHER = "weather.jsp"
 
     val REGISTER = "register.jsp"
 
     val ACTIVATE = "activate.jsp"
+
+    val MODIFY_PWD = "modifyPwd.jsp"
 
     val WAITACTIVATE = "waitActivate.jsp"
 

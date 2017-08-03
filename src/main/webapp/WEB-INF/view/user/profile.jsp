@@ -20,6 +20,7 @@
     <link href="${pageContext.request.contextPath}/static/css/font-awesome.min.css-v=4.4.0.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/css/animate.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/css/style.min.css-v=4.0.0.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/ueditor/themes/default/css/ueditor.css"/>
     <%--<base target="_blank">--%>
 </head>
 
@@ -187,6 +188,7 @@
                         <p>请填写要修改的个人信息</p>
                         <form action="/user/modifyInfo" method="post">
                             <input type="hidden" name="user.id" value="${sessionScope.loginUser.id}" />
+                            <input type="hidden" name="user.description" id="desc" />
                             <div class="form-group">
                                 <label>邮箱：</label>
                                 ${sessionScope.loginUser.email}
@@ -206,7 +208,7 @@
                             </div>
                             <div class="form-group">
                                 <label>个人描述：</label>
-                                <textarea class="form-control" placeholder="请输入个人描述" id="desc" name="user.description" rows="4">${sessionScope.loginUser.description}</textarea>
+                                <script id="container" type="text/plain">${sessionScope.loginUser.description}</script>
                             </div>
                             <div>
                                 <button type="submit" class="btn btn-primary btn-sm btn-block"><i></i> 更改 </button>
@@ -225,17 +227,32 @@
 <script src="${pageContext.request.contextPath}/static/js/plugins/peity/jquery.peity.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/demo/peity-demo.min.js"></script>
 <script src="${pageContext.request.contextPath}/layer/layer.js" type="text/javascript"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/lang/zh-cn/zh-cn.js"></script>
 </body>
 <script>
+    var ue = UE.getEditor('container',{
+        toolbars:[['bold','indent','italic','underline','strikethrough']
+        /*,['fontfamily','fontsize','forecolor','emotion','preview']*/
+        ],
+        wordCount:true,
+        maximumWords:200,
+        elementPathEnabled:false,
+        initialFrameHeight:200
+    });
+
     $('form').submit(function () {
         if ($.trim($('#addressDetails').val()) == '') {
             layer.msg('请输入住址详情', {icon: 5, offset: '200px'});
             return false;
         }
-        if ($.trim($('#desc').val()) == '') {
+        var content = ue.getContent();
+        if ($.trim(content) == '') {
             layer.msg('请输入个人描述', {icon: 5, offset: '200px'});
             return false;
         }
+        $('#desc').val(content);
     })
 </script>
 </body>

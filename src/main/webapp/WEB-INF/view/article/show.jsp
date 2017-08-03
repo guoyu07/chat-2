@@ -15,6 +15,7 @@
     <link href="${pageContext.request.contextPath}/static/css/font-awesome.min.css-v=4.4.0.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/css/animate.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/css/style.min.css-v=4.0.0.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/ueditor/themes/default/css/ueditor.css"/>
 </head>
 <body class="gray-bg">
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -45,29 +46,41 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <h2>评论：</h2>
-                            <!-- 评论 -->
+                            <c:forEach items="${page.list}" var="c">
                             <div class="social-feed-box">
                                 <div class="social-avatar">
                                     <a href="" class="pull-left">
-                                        <img alt="image" src="${pageContext.request.contextPath}/static/img/a1.jpg">
+                                        <img alt="image" src="${c.pic}">
                                     </a>
                                     <div class="media-body">
                                         <a href="#">
-                                            逆光狂胜蔡舞娘
+                                            ${c.name}
                                         </a>
-                                        <small class="text-muted">17 小时前</small>
+                                        <small class="text-muted">${c.time}17 小时前</small>
                                     </div>
                                 </div>
                                 <div class="social-body">
                                     <p>
-                                        好东西，我朝淘宝准备跟进，1折开卖
+                                       ${c.content}
                                     </p>
                                 </div>
                             </div>
-                            <!-- 评论 -->
+                            </c:forEach>
                         </div>
                     </div>
                 </div>
+                    <div>
+                        <script id="container" type="text/plain" style="height:500px;"></script>
+                        <form action="/article/leaveMsg" method="post">
+                            <input type="hidden" name="way" value="${way}" />
+                            <input type="hidden" name="p" value="${p}" />
+                            <input type="hidden" name="aid" value="${article.id}" />
+                            <input type="hidden" name="uid" value="${sessionScope.loginUser.id}" />
+                            <input type="hidden" name="content" id="content" />
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"><i></i> 留言 </button>
+                        </form>
+                    </div>
+
             </div>
         </div>
     </div>
@@ -75,5 +88,29 @@
 <script src="${pageContext.request.contextPath}/static/js/jquery.min.js-v=2.1.4.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/bootstrap.min.js-v=3.3.5.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/content.min.js-v=1.0.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script src="${pageContext.request.contextPath}/layer/layer.js" type="text/javascript"></script>
+<script>
+    $(function () {
+        if('${leaveMsgSuccess}' != ''){
+            layer.msg('${leaveMsgSuccess}', {icon: 6, offset: '200px'});
+        }
+    })
+    var ue = UE.getEditor('container',{
+        wordCount:true,
+        maximumWords:500,
+        elementPathEnabled:false,
+        initialFrameHeight:400})
+    $('form').submit(function () {
+        var content = ue.getContent();
+        if ($.trim(content) == '') {
+            layer.msg('请输入留言内容', {icon: 5, offset: '200px'});
+            return false;
+        }
+        $('#content').val(content);
+    })
+</script>
 </body>
 </html>

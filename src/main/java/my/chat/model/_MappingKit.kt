@@ -22,7 +22,7 @@ object _MappingKit {
         arp.addMapping("type", "id", Type::class.java)
         arp.addMapping("user", "id", User::class.java)
         arp.addMapping("article", "id", Article::class.java)
-        arp.addMapping("articleComment","id",ArticleComment::class.java)
+        arp.addMapping("article_comment","id",ArticleComment::class.java)
     }
 }
 

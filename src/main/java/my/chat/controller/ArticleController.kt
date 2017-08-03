@@ -2,10 +2,10 @@ package my.chat.controller
 
 import com.jfinal.aop.Clear
 import com.jfinal.core.Controller
-import com.jfinal.plugin.activerecord.Page
-import my.chat.common.Constants
+import com.xiaoleilu.hutool.db.Page
 import my.chat.common.UserConstants
 import my.chat.model.Article
+import my.chat.model.ArticleComment
 import my.chat.model.User
 import my.chat.service.ArticleService
 import java.util.*
@@ -20,6 +20,8 @@ import java.util.*
 class ArticleController : Controller() {
 
     internal var article: Article? = null
+
+    internal var articleComment: ArticleComment? = null
 
     companion object {
         internal var articleService = ArticleService()
@@ -55,11 +57,27 @@ class ArticleController : Controller() {
     fun detail() {
         article = articleService.detail(getParaToInt("id"))
         // 已阅读数量+1
-        article!!.setReadNum(article!!.readNum!!.toInt()+1).update()
+        article!!.setReadNum(article!!.readNum!!.toInt() + 1).update()
+        // 加载评论
+        val page = Page(getParaToInt("p") ?: 1, 10)
+        val listComment = articleService.listComment(article!!.id!!, page)
+        val from: String? = getPara("from")
+        if (from != null && from.equals("leaveMsg"))
+            setAttr("leaveMsgSuccess", "留言成功")
         setAttr("article", article)
-                .setAttr("way",getPara("way"))
-                .setAttr("p",getPara("p"))
+                .setAttr("page",listComment)
+                .setAttr("way", getPara("way"))
+                .setAttr("p", getPara("p"))
                 .renderJsp("show.jsp")
+    }
+
+    fun leaveMsg() {
+        articleComment = getBean(ArticleComment::class.java, "")
+        articleComment!!.setTime(Date()).save()
+        // 更改文章评论总数
+        articleService.updateArticleCommentCount(articleComment!!.aid!!)
+        val url = "/article/detail?id=" + articleComment!!.aid + "&way=" + getPara("way") + "&p=" + getPara("p") + "&from=leaveMsg"
+        redirect(url, true)
     }
 
 }

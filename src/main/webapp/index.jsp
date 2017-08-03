@@ -63,7 +63,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="logo-element">H+
+                    <div class="logo-element">chat
                     </div>
                 </li>
                 <li>

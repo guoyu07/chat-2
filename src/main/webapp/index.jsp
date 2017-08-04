@@ -111,15 +111,19 @@
                             <a class="J_menuItem" href="/music/list">歌曲列表</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="graph_echarts.html">添加歌曲</a>
+                            <a class="J_menuItem" href="/music/addSong">添加歌曲</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="graph_echarts.html">添加专辑</a>
+                            <a class="J_menuItem" href="/music/addAlbum">添加专辑</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="graph_echarts.html">添加歌手</a>
+                            <a class="J_menuItem" href="/music/addSinger">添加歌手</a>
                         </li>
                     </ul>
+                </li>
+                <li>
+                    <a class="J_menuItem" href="/tweets/list"><i class="fa fa-gg"></i> <span
+                            class="nav-label">tweets</span></a>
                 </li>
                 <li>
                     <a href="#">
@@ -144,14 +148,11 @@
                             class="fa fa-envelope"></i> <span class="nav-label">信箱 </span><span
                             class="label label-warning pull-right">16</span></a>
                     <ul class="nav nav-second-level">
-                        <li><a class="J_menuItem" href="mailbox.html"
-                               tppabs="http://www.zi-han.net/theme/hplus/mailbox.html">收件箱</a>
+                        <li><a class="J_menuItem" href="mailbox" >收件箱</a>
                         </li>
-                        <li><a class="J_menuItem" href="mail_detail.html"
-                               tppabs="http://www.zi-han.net/theme/hplus/mail_detail.html">查看邮件</a>
+                        <li><a class="J_menuItem" href="mail_detail">查看邮件</a>
                         </li>
-                        <li><a class="J_menuItem" href="mail_compose.html"
-                               tppabs="http://www.zi-han.net/theme/hplus/mail_compose.html">写信</a>
+                        <li><a class="J_menuItem" href="mail_compose.html">写信</a>
                         </li>
                     </ul>
                 </li>

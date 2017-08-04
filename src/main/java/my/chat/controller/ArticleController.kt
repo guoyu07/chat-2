@@ -2,6 +2,8 @@ package my.chat.controller
 
 import com.jfinal.aop.Clear
 import com.jfinal.core.Controller
+import com.jfinal.json.FastJson
+import com.jfinal.plugin.activerecord.Record
 import com.xiaoleilu.hutool.db.Page
 import my.chat.common.UserConstants
 import my.chat.model.Article
@@ -59,18 +61,27 @@ class ArticleController : Controller() {
         // 已阅读数量+1
         article!!.setReadNum(article!!.readNum!!.toInt() + 1).update()
         // 加载评论
-        val page = Page(getParaToInt("p") ?: 1, 10)
+        val page = Page(getParaToInt("p") ?: 1, 1)
         val listComment = articleService.listComment(article!!.id!!, page)
         val from: String? = getPara("from")
         if (from != null && from.equals("leaveMsg"))
             setAttr("leaveMsgSuccess", "留言成功")
         setAttr("article", article)
-                .setAttr("page",listComment)
+                .setAttr("page", listComment)
                 .setAttr("way", getPara("way"))
                 .setAttr("p", getPara("p"))
                 .renderJsp("show.jsp")
     }
 
+    // 加载文章评论
+    fun loadArticleComments() {
+        val aid = getParaToInt("aid")
+        val page = Page(getParaToInt("p") ?: 1, 1)
+        val listComment = articleService.listComment(aid, page)
+        renderJson(listComment)
+    }
+
+    // 加载留言
     fun leaveMsg() {
         articleComment = getBean(ArticleComment::class.java, "")
         articleComment!!.setTime(Date()).save()

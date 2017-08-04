@@ -144,6 +144,15 @@ abstract class BaseUser<M : BaseUser<M>> : Model<M>(), IBean {
     val picSummary: String?
         get() = get("picSummary")
 
+    fun setHomePagePic(homePagePic: String?): M {
+        set("homePagePic", homePagePic)
+        return this as M
+    }
+
+    val homePagePic: String?
+        get() = get("homePagePic")
+
+
     fun setDescription(description: String?): M {
         set("description", description)
         return this as M

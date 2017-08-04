@@ -154,7 +154,7 @@
     auth.from = '${sessionScope.loginUser.id}';
     auth.fromImg = '${sessionScope.loginUser.picSummary}';
     if(auth.fromImg == ''){
-        auth.fromImg = "${pageContext.request.contextPath}/images/avatar.png";
+        auth.fromImg = "${sessionScope.loginUser.picSummary}";
     }
     auth.fromEmail = '${fn:substring(sessionScope.loginUser.email,0 ,fn:indexOf(sessionScope.loginUser.email,"@") )}';
 
@@ -196,7 +196,8 @@
         var json = eval('(' + data + ')');
         var html = '';
         html += '<div class="chat-message">';
-        html += '<img class="message-avatar" src="'+auth.fromImg+'" alt="">';
+        <!-- 需要处理照片为发消息人的照片 -->
+        html += '<img class="message-avatar" src="'+auth.fromImg+'" alt="" width="64px" height="64px">';
         html += '<div class="message">';
         html += '<a class="message-author" href="' + json.from + '">' + json.fromEmail + '</a>';
         html += '<span class="message-date"><%=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())%></span>';

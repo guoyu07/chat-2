@@ -12,8 +12,11 @@ import my.chat.common.UserConstants
 import my.chat.common.ViewConstants
 import my.chat.model.User
 import my.chat.service.UserService
+import java.awt.Image
+import java.io.File
+import java.util.*
 
-import java.util.Date
+import javax.imageio.ImageIO
 
 /**
  * @author lyu lyusantu@gmail.com
@@ -126,6 +129,12 @@ class UserController : Controller() {
     fun modifyAvatar() {
         if ("GET".equals(request.method, ignoreCase = true)) {
             renderJsp("modifyAvatar.jsp")
+        } else {
+            val logo = getPara("logo")
+            user = getSessionAttr(UserConstants.LOGIN_USER)
+            user!!.setPicSummary(logo).update()
+            setSessionAttr(UserConstants.LOGIN_USER, user)
+                    .renderJsp("modifyAvatar.jsp")
         }
     }
 
@@ -135,7 +144,7 @@ class UserController : Controller() {
             user = getSessionAttr(UserConstants.LOGIN_USER)
             user!!.setPassword(SecureUtil.md5(getPara("password"))).update()
             setSessionAttr(UserConstants.LOGIN_USER, user)
-                    .setAttr("modifyPwdMsg","修改密码成功")
+                    .setAttr("modifyPwdMsg", "修改密码成功")
                     .renderJsp(ViewConstants.MODIFY_PWD)
         } else {
             renderJsp(ViewConstants.MODIFY_PWD)

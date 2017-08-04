@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <title> - chat</title>
+    <title>chat</title>
     <meta name="keywords" content="chat">
     <meta name="description" content="chat">
     <!--[if lt IE 8]>
@@ -37,14 +37,7 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                         <span>
-                            <c:if test="${sessionScope.loginUser.picSummary == null}">
-                                <img alt="image" class="img-circle"
-                                     src="${pageContext.request.contextPath}/static/img/a3.jpg" width="64px"
-                                     height="64px"/>
-                            </c:if>
-                            <c:if test="${sessionScope.loginUser.picSummary != null}">
-                                <img alt="image" class="img-circle" src="${sessionScope.loginUser.picSummary}"/>
-                            </c:if>
+                            <img alt="image" class="img-circle" src="${sessionScope.loginUser.picSummary}" width="64px" height="64px"/>
                         </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">

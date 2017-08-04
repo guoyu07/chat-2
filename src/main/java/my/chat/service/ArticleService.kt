@@ -32,7 +32,7 @@ class ArticleService {
 
     fun listComment(aid: Int, page: com.xiaoleilu.hutool.db.Page): Page<Record> {
         val sqlPrifix = "SELECT c.content content,c.time time,u.nickname name,u.picSummary pic"
-        val sqlSuffix = "FROM article_comment c,user u WHERE c.uid=u.id AND c.aid=?"
+        val sqlSuffix = "FROM article_comment c,user u WHERE c.uid=u.id AND c.aid=? ORDER BY c.id DESC"
         return Db.paginate(page.pageNumber, page.numPerPage, sqlPrifix, sqlSuffix, aid)
     }
 

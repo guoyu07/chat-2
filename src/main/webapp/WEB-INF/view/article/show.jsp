@@ -46,26 +46,13 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <h2>评论：</h2>
-                            <c:forEach items="${page.list}" var="c">
-                            <div class="social-feed-box">
-                                <div class="social-avatar">
-                                    <a href="" class="pull-left">
-                                        <img alt="image" src="${c.pic}">
-                                    </a>
-                                    <div class="media-body">
-                                        <a href="#">
-                                            ${c.name}
-                                        </a>
-                                        <small class="text-muted">${c.time}17 小时前</small>
+                            <div id="comments-ajax">
+                            </div>
+                                <div class="social-feed-box">
+                                    <div class="social-body">
+                                        <div id="pages"></div>
                                     </div>
                                 </div>
-                                <div class="social-body">
-                                    <p>
-                                       ${c.content}
-                                    </p>
-                                </div>
-                            </div>
-                            </c:forEach>
                         </div>
                     </div>
                 </div>
@@ -80,7 +67,6 @@
                             <button type="submit" class="btn btn-primary btn-sm btn-block"><i></i> 留言 </button>
                         </form>
                     </div>
-
             </div>
         </div>
     </div>
@@ -92,6 +78,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.all.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/lang/zh-cn/zh-cn.js"></script>
 <script src="${pageContext.request.contextPath}/layer/layer.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/laypage/laypage.js" type="text/javascript"></script>
 <script>
     $(function () {
         if('${leaveMsgSuccess}' != ''){
@@ -102,7 +89,7 @@
         wordCount:true,
         maximumWords:500,
         elementPathEnabled:false,
-        initialFrameHeight:400})
+        initialFrameHeight:300})
     $('form').submit(function () {
         var content = ue.getContent();
         if ($.trim(content) == '') {
@@ -111,6 +98,55 @@
         }
         $('#content').val(content);
     })
+
+    var pages = '${page.totalPage}';
+    //调用分页
+    laypage({
+        cont: $('#pages'), //容器。值支持id名、原生dom对象，jquery对象,
+        pages: pages, //总页数
+        skip: true, //是否开启跳页
+        skin: '#00AA91',
+        groups: 5, //连续显示分页数
+        jump:function (obj) {
+          // 加载评论
+                $.ajax({
+                    async : false,
+                    type : "POST",
+                    url : "/article/loadArticleComments",
+                    data : {
+                        aid : '${article.id}',
+                        p : obj.curr
+                    },
+                    success : function(json) {
+                        var html = '';
+                        for(var i = 0; i < json.list.length; i++){
+                            html += '<div class="social-feed-box">';
+                            html += '<div class="social-avatar">';
+                            html += '<a href="" class="pull-left">';
+                            html += '<img alt="image" src="' + json.list[i].pic + '">';
+                            html += '</a>';
+                            html += '<div class="media-body">';
+                            html += '<a href="#">';
+                            html += json.list[i].name;
+                            html += '</a>';
+                            html += '<small class="text-muted"> ' + json.list[i].time + '</small>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '<div class="social-body">';
+                            html += '<p>';
+                            html += json.list[i].content;
+                            html += '</p>';
+                            html += '</div>';
+                            html += '</div>';
+                        }
+                        $('#comments-ajax').html(html);
+                    },
+                    error : function(XMLHttpRequest, textStatus,
+                                     errorThrown) {
+                    }
+                });
+        }
+    });
 </script>
 </body>
 </html>

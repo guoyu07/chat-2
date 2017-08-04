@@ -20,7 +20,6 @@
     <link href="${pageContext.request.contextPath}/static/css/font-awesome.min.css-v=4.4.0.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/css/plugins/cropper/cropper.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/css/style.min.css-v=4.0.0.css" rel="stylesheet">
-    <base target="_blank">
 </head>
 
 <body class="gray-bg">
@@ -36,7 +35,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="image-crop">
-                            <img src="${pageContext.request.contextPath}/static/img/a3.jpg">
+                            <img src="${sessionScope.loginUser.picSummary}">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -47,10 +46,13 @@
                             你可以选择新图片上传，然后下载裁剪后的图片
                         </p>
                         <div class="btn-group">
-                            <label title="上传新图片" for="inputImage" class="btn btn-primary">
-                                <input type="file" accept="image/*" name="file" id="inputImage" class="hide"> 上传新图片
-                            </label>
-                            <label title="保存头像" id="download" class="btn btn-primary">保存头像</label>
+                            <form action="/user/modifyAvatar" method="post" id="modifyAvatarForm">
+                                <label title="上传新图片" for="inputImage" class="btn btn-primary">
+                                    <input type="file" accept="image/*" id="inputImage" class="hide"> 上传新图片
+                                </label>
+                                <input type="hidden" name="logo" id="logo"/>
+                                <label title="保存头像" id="download" class="btn btn-primary">保存头像</label>
+                            </form>
                         </div>
                         <h4>其他说明：</h4>
                         <p>
@@ -76,5 +78,6 @@
 <script src="${pageContext.request.contextPath}/static/js/content.min.js-v=1.0.0.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/plugins/cropper/cropper.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/demo/form-advanced-demo.min.js"></script>
+<script src="${pageContext.request.contextPath}/layer/layer.js" type="text/javascript"></script>
 </body>
 </html>

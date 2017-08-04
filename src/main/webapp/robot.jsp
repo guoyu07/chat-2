@@ -70,7 +70,7 @@
     var name = '${sessionScope.loginUser.email}';
     var img = '${sessionScope.loginUser.picSummary}';
     if(img == ''){
-        img = "${pageContext.request.contextPath}/images/avatar.png";
+        img = "${pageContext.request.contextPath}/static/img/defaultLogo.jpg";
     }
     function send(){
         var msg = $('#message');
@@ -80,7 +80,7 @@
         var time = new Date().toLocaleString();
         var html = '';
         html += '<div class="chat-message">';
-        html += '<img class="message-avatar" src="'+img+'" alt="">';
+        html += '<img class="message-avatar" src="'+img+'" alt="" width="64px" height="64px">';
         html += '<div class="message">';
         html += '<a class="message-author" href="#">' + name + '</a>';
         html += '<span class="message-date"><%=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())%></span>';
@@ -99,7 +99,7 @@
             dataType : "JSON",
             success : function(data) {
                 html += '<div class="chat-message">';
-                html += '<img class="message-avatar" src="${pageContext.request.contextPath}/static/img/a1.jpg" alt="">';
+                html += '<img class="message-avatar" src="${sessionScope.loginUser.picSummary}" alt="" width="64px" height="64px">';
                 html += '<div class="message">';
                 html += '<a class="message-author" href="#">robot</a>';
                 html += '<span class="message-date"><%=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())%></span>';

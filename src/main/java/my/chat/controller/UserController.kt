@@ -2,6 +2,7 @@ package my.chat.controller
 
 import com.jfinal.aop.Clear
 import com.jfinal.core.Controller
+import com.jfinal.plugin.activerecord.Record
 import com.jfinal.upload.UploadFile
 import com.jfplugin.mail.MailKit
 import com.xiaoleilu.hutool.crypto.SecureUtil
@@ -12,6 +13,7 @@ import my.chat.common.UserConstants
 import my.chat.common.ViewConstants
 import my.chat.model.User
 import my.chat.service.UserService
+import org.omg.CORBA.Object
 import java.awt.Image
 import java.io.File
 import java.util.*
@@ -46,7 +48,7 @@ class UserController : Controller() {
             user = getModel(User::class.java).setSessionStr(session.id)
             if (userService.register(user!!)) {
                 // 发送激活邮件
-                MailKit.send(user!!.email, null, Mail.MAIL_TITLE, Mail.getMailText(user!!.email!!, user!!.sessionStr!!, url))
+                MailKit.send(user!!.email, null, Mail.MAIL_TITLE_ACTIVE, Mail.getMailText(user!!.email!!, user!!.sessionStr!!, url))
                 redirect("/user/waitActivate?email=" + user!!.email, true)
             } else {
                 setAttr(UserConstants.REG_ERR_MSG, UserConstants.MAIL_HAS_EXISTS).renderJsp(ViewConstants.REGISTER)
@@ -149,6 +151,50 @@ class UserController : Controller() {
         } else {
             renderJsp(ViewConstants.MODIFY_PWD)
         }
+    }
+
+    // 忘记密码
+    @Clear
+    fun forgetPwd() {
+        if ("GET".equals(request.method, ignoreCase = true)) {
+            renderJsp("forgetPwd.jsp")
+        } else {
+            renderJsp("login.jsp")
+        }
+    }
+
+    // 检查邮箱是否存在
+    fun verifyMailExists() {
+        var ret = ""
+        var msg = ""
+        val uuid = UUID.randomUUID().toString()
+        val mail = getPara("mail")
+        user = userService.verifyMailExists(mail)
+        if (!Objects.isNull(user)) {
+            when (user!!.status!!) {
+                0 -> { // 未激活,输入标识码激活并更改密码
+                    msg = "您的账户未激活! 请输入标识码以激活您的账户并更改您的密码"
+                    MailKit.send(mail, null, Mail.MAIL_TITLE_FORGET, Mail.getMailText(user!!.email!!, uuid, url))
+                }
+                1 -> {
+                    //  发送标识码
+                    msg = "请输入标识码以更改您的密码"
+                    MailKit.send(mail, null, Mail.MAIL_TITLE_FORGET, Mail.getMailText(user!!.email!!, uuid, url))
+                }
+                2 -> {
+                    ret = "1"
+                    msg = "您的账户已被禁封"
+                }
+            }
+        } else {
+            ret = "1"
+            msg = "您输入的邮箱不存在"
+        }
+        var map = HashMap<String, String>()
+        map.put("ret", ret)
+        map.put("msg", msg)
+        map.put("uuid", uuid)
+        renderJson(map)
     }
 
     val url: String

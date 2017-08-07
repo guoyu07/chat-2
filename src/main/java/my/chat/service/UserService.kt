@@ -53,7 +53,7 @@ class UserService {
 
     fun checkEmail(email: String): Boolean = userDao.find("select id from user where email = '${email}'").size > 0
 
-    fun verifyMailExists(mail: String): User? = userDao.find("select id from user where email = '${mail}'").get(0)!! ?: null
+    fun verifyMailExists(mail: String): List<User>? = userDao.find("select id,status,email from user where email = '${mail}'")
 
     companion object {
         private val userDao = User().dao()

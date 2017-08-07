@@ -153,6 +153,21 @@ class UserController : Controller() {
         }
     }
 
+    @Clear
+    fun modifyPwdAjax() {
+        val id = getParaToInt("id")
+        val pwd = getPara("pwd")
+        var ret = "0"
+        var msg = "修改密码成功"
+        user = User().findById(id)
+        if (!user!!.setPassword(SecureUtil.md5(pwd)).update()) {
+            ret = "1"
+            msg = "修改密码失败"
+        }
+        val json = Record()
+        renderJson(json.set("ret", ret).set("msg", msg))
+    }
+
     // 忘记密码
     @Clear
     fun forgetPwd() {
@@ -164,20 +179,25 @@ class UserController : Controller() {
     }
 
     // 检查邮箱是否存在
+    @Clear
     fun verifyMailExists() {
-        var ret = ""
-        var msg = ""
+        var id = 0
+        var ret = "1"
+        var msg = "您输入的邮箱不存在"
         val uuid = UUID.randomUUID().toString()
         val mail = getPara("mail")
-        user = userService.verifyMailExists(mail)
-        if (!Objects.isNull(user)) {
+        val list = userService.verifyMailExists(mail)
+        if (list!!.size > 0) {
+            user = list!!.get(0)
             when (user!!.status!!) {
                 0 -> { // 未激活,输入标识码激活并更改密码
+                    ret = "0"
                     msg = "您的账户未激活! 请输入标识码以激活您的账户并更改您的密码"
                     MailKit.send(mail, null, Mail.MAIL_TITLE_FORGET, Mail.getMailText(user!!.email!!, uuid, url))
                 }
                 1 -> {
                     //  发送标识码
+                    ret = "0"
                     msg = "请输入标识码以更改您的密码"
                     MailKit.send(mail, null, Mail.MAIL_TITLE_FORGET, Mail.getMailText(user!!.email!!, uuid, url))
                 }
@@ -186,15 +206,10 @@ class UserController : Controller() {
                     msg = "您的账户已被禁封"
                 }
             }
-        } else {
-            ret = "1"
-            msg = "您输入的邮箱不存在"
         }
-        var map = HashMap<String, String>()
-        map.put("ret", ret)
-        map.put("msg", msg)
-        map.put("uuid", uuid)
-        renderJson(map)
+        val map = Record()
+        id = if (Objects.isNull(user)) 0 else user!!.id!!
+        renderJson(map.set("ret", ret).set("msg", msg).set("uuid", uuid).set("id", id))
     }
 
     val url: String

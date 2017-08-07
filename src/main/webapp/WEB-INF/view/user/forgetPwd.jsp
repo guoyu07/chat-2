@@ -65,7 +65,7 @@
                             <div class="text-center" style="margin-top: 120px">
                                 <h2>请在下方输入您邮箱中收到的标识码</h2>
                                 <h3><span id="tips" style="color: #1AB394"></span></h3>
-                                <input id="uuidConfirm" name="email" type="email" class="form-control required">
+                                <input id="uuidConfirm" name="uuid" type="text" class="form-control required">
                             </div>
                         </fieldset>
                         <h1>设置新密码</h1>
@@ -95,7 +95,7 @@
                         </fieldset>
                         <h1>完成</h1>
                         <fieldset>
-                            <h2>请点击右下侧"完成"按钮提交修改后的密码!</br>如想取消修改密码,请点击右下侧"取消"按钮或退出该页面!</h2>
+                            <h2><span id="finalTips"></span></h2>
                         </fieldset>
                     </form>
                 </div>
@@ -112,6 +112,8 @@
 <script src="${pageContext.request.contextPath}/static/js/plugins/validate/messages_zh.min.js"></script>
 <script src="${pageContext.request.contextPath}/layer/layer.js" type="text/javascript"></script>
 <script>
+    var id = "";
+    var uuid = "";
     $(document).ready(function () {
         $("#wizard").steps();
         $("#form").steps({
@@ -128,32 +130,63 @@
                     $(".body:eq(" + newIndex + ") .error", form).removeClass("error")
                 }
                 form.validate().settings.ignore = ":disabled,:hidden";
-                if(form.valid()){
+                var flag = true;
+                if (form.valid()) {
                     var mail = $('#email').val();
-                    if(currentIndex == 0){
+                    if (currentIndex == 0) {
                         $.ajax({
-                            async : false,
-                            type : "POST",
-                            url : "/user/verifyMailExists",
-                            data : {
-                                mail : mail
+                            async: false,
+                            type: "POST",
+                            url: "${pageContext.request.contextPath}/user/verifyMailExists",
+                            data: {
+                                mail: mail
                             },
-                            success : function(data) {
-                                alert(data);
-                                if(data.ret == 1) {
-                                    layer.msg(data.msg, {icon: 5, offset: '250px'});
-                                    return false;
-                                }else{
-                                    $('#tips').text(data.msg);
+                            success: function (json) {
+                                if (json.ret == '1') {
+                                    layer.msg(json.msg, {icon: 5, offset: '250px'});
+                                    flag = false;
+                                } else {
+                                    id = json.id
+                                    uuid = json.uuid;
+                                    $('#tips').text(json.msg);
                                 }
                             },
-                            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
                             }
                         });
-                        // AJAX验证邮件是否存在,如存在则直接发送激活邮件进入下一步,否则提示不存在
+                    }
+                    if (currentIndex == 1) {
+                        if (uuid != $('#uuidConfirm').val()) {
+                            layer.msg('您输入的激活码有误', {icon: 5, offset: '250px'});
+                            flag = false;
+                        }
+                    }
+                    if (currentIndex == 2) {
+                        var pwd = $('#password').val()
+                        $.ajax({
+                            async: false,
+                            type: "POST",
+                            url: "${pageContext.request.contextPath}/user/modifyPwdAjax",
+                            data: {
+                                id: id,
+                                pwd: pwd
+                            },
+                            success: function (json) {
+                                if (json.ret == '1') {
+                                    layer.msg(json.msg, {icon: 5, offset: '250px'});
+                                    flag = false;
+                                } else {
+                                    $('#finalTips').text(json.msg + ",马上登录!");
+                                    setTimout(location.href = '${pageContext.request.contextPath}/user/login', 3000);
+                                }
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            }
+                        });
                     }
                 }
-                return form.valid()
+                if (flag)
+                    return form.valid()
             }, onStepChanged: function (event, currentIndex, priorIndex) {
                 if (currentIndex === 2 && Number($("#age").val()) >= 18) {
                     $(this).steps("next")
@@ -166,11 +199,11 @@
                 form.validate().settings.ignore = ":disabled";
                 /*if(form.valid()){
 
-                }*/
+                 }*/
                 return form.valid()
             }, onFinished: function (event, currentIndex) {
                 var form = $(this);
-                form.submit()
+                location.href = '${pageContext.request.contextPath}/user/login'
             }
         }).validate({
             errorPlacement: function (error, element) {

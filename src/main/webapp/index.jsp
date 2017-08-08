@@ -27,7 +27,7 @@
     <link href="${pageContext.request.contextPath}/static/css/style.min.css-v=4.0.0.css" rel="stylesheet">
 </head>
 
-<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+<body class="fixed-sidebar full-height-layout gray-bg mini-navbar" style="overflow:hidden">
 <div id="wrapper">
     <!--左侧导航开始-->
     <nav class="navbar-default navbar-static-side" role="navigation">
@@ -53,8 +53,7 @@
                             </li>
                             <li><a class="J_menuItem" href="/user/modifyPwd">修改密码</a>
                             </li>
-                            <li><a class="J_menuItem" href="mailbox.html"
-                                   tppabs="http://www.zi-han.net/theme/hplus/mailbox.html">信箱</a>
+                            <li><a class="J_menuItem" href="mailbox.html">信箱</a>
                             </li>
                             <li class="divider"></li>
                             <li><a href="/user/exit">安全退出</a>
@@ -122,7 +121,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a class="J_menuItem" href="/tweets/list"><i class="fa fa-gg"></i> <span
+                    <a class="J_menuItem" href="/tweets"><i class="fa fa-gg"></i> <span
                             class="nav-label">tweets</span></a>
                 </li>
                 <li>
@@ -144,9 +143,10 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="mailbox.html" tppabs="http://www.zi-han.net/theme/hplus/mailbox.html"><i
-                            class="fa fa-envelope"></i> <span class="nav-label">信箱 </span><span
-                            class="label label-warning pull-right">16</span></a>
+                    <a href="mailbox.html">
+                        <i class="fa fa-envelope"></i>
+                        <span class="nav-label">信箱 </span>
+                        <span class="label label-warning pull-right">16</span></a>
                     <ul class="nav nav-second-level">
                         <li><a class="J_menuItem" href="mailbox" >收件箱</a>
                         </li>
@@ -166,15 +166,14 @@
             <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i
                         class="fa fa-bars"></i> </a>
-                    <form role="search" class="navbar-form-custom" method="post"
-                          action="http://www.zi-han.net/theme/hplus/search_results.html">
+                    <form role="search" class="navbar-form-custom" method="post" action="#" style="width: 80%;">
                         <div class="form-group">
-                            <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search"
-                                   id="top-search">
+                            <input type="text" placeholder="单击导航栏切换导航页面,双击导航栏即可刷新导航页面 :)" class="form-control" name="top-search" id="top-search">
                         </div>
                     </form>
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
+                    <!-- 信箱 -->
                     <li class="dropdown">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                             <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
@@ -182,13 +181,11 @@
                         <ul class="dropdown-menu dropdown-messages">
                             <li class="m-t-xs">
                                 <div class="dropdown-messages-box">
-                                    <a href="profile.html" tppabs="http://www.zi-han.net/theme/hplus/profile.html"
-                                       class="pull-left">
-                                        <img alt="image" class="img-circle" src="img/a7.jpg"
-                                             tppabs="http://www.zi-han.net/theme/hplus/img/a7.jpg">
+                                    <a href="profile.html" class="pull-left">
+                                        <img alt="image" class="img-circle" src="${pageContext.request.contextPath}/static/img/a7.jpg">
                                     </a>
                                     <div class="media-body">
-                                        <small class="pull-right">46小时前</small>
+                                        <small class="pull-right text-navy">46小时前</small>
                                         <strong>小四</strong> 这个在日本投降书上签字的军官，建国后一定是个不小的干部吧？
                                         <br>
                                         <small class="text-muted">3天前 2014.11.8</small>
@@ -198,10 +195,8 @@
                             <li class="divider"></li>
                             <li>
                                 <div class="dropdown-messages-box">
-                                    <a href="profile.html" tppabs="http://www.zi-han.net/theme/hplus/profile.html"
-                                       class="pull-left">
-                                        <img alt="image" class="img-circle" src="img/a4.jpg"
-                                             tppabs="http://www.zi-han.net/theme/hplus/img/a4.jpg">
+                                    <a href="profile.html" class="pull-left">
+                                        <img alt="image" class="img-circle" src="${pageContext.request.contextPath}/static/img/a4.jpg">
                                     </a>
                                     <div class="media-body ">
                                         <small class="pull-right text-navy">25小时前</small>
@@ -222,6 +217,8 @@
                             </li>
                         </ul>
                     </li>
+                    <!-- /信箱 -->
+                    <!-- 消息提醒 -->
                     <li class="dropdown">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                             <i class="fa fa-bell"></i> <span class="label label-primary">8</span>
@@ -240,7 +237,7 @@
                                 <a href="profile.html" tppabs="http://www.zi-han.net/theme/hplus/profile.html">
                                     <div>
                                         <i class="fa fa-qq fa-fw"></i> 3条新回复
-                                        <span class="pull-right text-muted small">12分钟钱</span>
+                                        <span class="pull-right text-muted small">12分钟前</span>
                                     </div>
                                 </a>
                             </li>
@@ -256,9 +253,9 @@
                             </li>
                         </ul>
                     </li>
+                    <!-- /消息提醒 -->
                     <li class="hidden-xs">
-                        <a href="index_v1.html" tppabs="http://www.zi-han.net/theme/hplus/index_v1.html"
-                           class="J_menuItem" data-index="0"><i class="fa fa-cart-arrow-down"></i> 购买</a>
+                        <a href="#" class="J_menuItem" data-index="0"><i class="fa fa-cart-arrow-down"></i> 购买</a>
                     </li>
                     <li class="dropdown hidden-xs">
                         <a class="right-sidebar-toggle" aria-expanded="false">
@@ -280,7 +277,6 @@
             </button>
             <div class="btn-group roll-nav roll-right">
                 <button class="dropdown J_tabClose" data-toggle="dropdown">关闭操作<span class="caret"></span>
-
                 </button>
                 <ul role="menu" class="dropdown-menu dropdown-menu-right">
                     <li class="J_tabShowActive"><a>定位当前选项卡</a>

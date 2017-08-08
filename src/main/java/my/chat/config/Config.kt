@@ -13,10 +13,7 @@ import my.chat.Interceptor.LoginInterceptor
 import my.chat.controller.IndexController
 import my.chat.handler.WsHandler
 import my.chat.model._MappingKit
-import my.chat.route.APIRoute
-import my.chat.route.ArticleRoute
-import my.chat.route.MusicRoute
-import my.chat.route.UserRoute
+import my.chat.route.*
 
 /**
  * @author lyu lyusantu@gmail.com
@@ -52,6 +49,7 @@ class Config : JFinalConfig() {
         routes.add(MusicRoute())
         routes.add(APIRoute())
         routes.add(ArticleRoute())
+        routes.add(TweetsRoute())
     }
 
     override fun configEngine(engine: Engine) {

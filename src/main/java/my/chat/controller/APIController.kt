@@ -2,7 +2,6 @@ package my.chat.controller
 
 import com.jfinal.aop.Clear
 import com.jfinal.core.Controller
-import my.chat.common.Constants
 import my.chat.common.ViewConstants
 
 import java.io.BufferedReader
@@ -38,7 +37,7 @@ class APIController : Controller() {
     private val TULING_KEY = "33d9d03c00384cbea267a38992f5a276"
 
     fun robot() {
-        setAttr(Constants.TITLE, "robot").renderJsp(ViewConstants.ROBOT)
+        renderJsp(ViewConstants.ROBOT)
     }
 
     @Throws(IOException::class)
@@ -51,7 +50,7 @@ class APIController : Controller() {
     @Throws(IOException::class)
     fun todayOnHistory() {
         if (request.method.equals("GET", ignoreCase = true)) {
-            setAttr(Constants.TITLE, "历史上的今天").renderJsp(ViewConstants.TODAYONHISTORY)
+            renderJsp(ViewConstants.TODAYONHISTORY)
         } else {
             val url = "http://apicloud.mob.com/appstore/history/query?key=" + MOB_KEY + "&day=" + SimpleDateFormat("MMdd").format(Date())
             renderJson(getJson(url))
@@ -61,7 +60,7 @@ class APIController : Controller() {
     @Throws(IOException::class)
     fun weather() {
         if (request.method.equals("GET", ignoreCase = true)) {
-            setAttr(Constants.TITLE, "weather").renderJsp(ViewConstants.WEATHER)
+            renderJsp(ViewConstants.WEATHER)
         } else {
             val url = "http://www.sojson.com/open/api/weather/json.shtml?city=" + getPara("city")
             renderJson(getJson(url))
@@ -83,7 +82,7 @@ class APIController : Controller() {
     @Throws(IOException::class)
     fun mobile() {
         if (request.method.equals("GET", ignoreCase = true)) {
-            setAttr(Constants.TITLE, "phone").renderJsp(ViewConstants.PHONE)
+            renderJsp(ViewConstants.PHONE)
         } else {
             val url = "http://apicloud.mob.com/v1/mobile/address/query?key=" + MOB_KEY + "&phone=" + getPara("phone")
             renderJson(getJson(url))
@@ -99,7 +98,7 @@ class APIController : Controller() {
     @Throws(IOException::class)
     fun dream() {
         if (request.method.equals("GET", ignoreCase = true)) {
-            setAttr(Constants.TITLE, "周公解梦").renderJsp(ViewConstants.DREAM)
+            renderJsp(ViewConstants.DREAM)
         } else {
             val url = "http://apicloud.mob.com/appstore/dream/search?key=" + MOB_KEY + "&name=" + getPara("name")
             renderJson(getJson(url))

@@ -3,22 +3,15 @@ package my.chat.controller
 import com.jfinal.aop.Clear
 import com.jfinal.core.Controller
 import com.jfinal.plugin.activerecord.Record
-import com.jfinal.upload.UploadFile
 import com.jfplugin.mail.MailKit
 import com.xiaoleilu.hutool.crypto.SecureUtil
 import com.xiaoleilu.hutool.util.ObjectUtil
-import my.chat.common.Constants
-import my.chat.plugin.Mail
 import my.chat.common.UserConstants
 import my.chat.common.ViewConstants
 import my.chat.model.User
+import my.chat.plugin.Mail
 import my.chat.service.UserService
-import org.omg.CORBA.Object
-import java.awt.Image
-import java.io.File
 import java.util.*
-
-import javax.imageio.ImageIO
 
 /**
  * @author lyu lyusantu@gmail.com
@@ -43,7 +36,7 @@ class UserController : Controller() {
     @Clear
     fun register() {
         if ("GET".equals(request.method, ignoreCase = true)) {
-            setAttr(Constants.TITLE, "login").renderJsp(ViewConstants.REGISTER)
+            renderJsp(ViewConstants.REGISTER)
         } else {
             user = getModel(User::class.java).setSessionStr(session.id)
             if (userService.register(user!!)) {
@@ -62,7 +55,6 @@ class UserController : Controller() {
 //            setAttr(UserConstants.LOGIN_ERR_MSG, getSessionAttr(UserConstants.NOT_LOGIN_ERR_MSG))
             setAttr(UserConstants.USERNAME, getPara("email"))
                     .removeSessionAttr(UserConstants.NOT_LOGIN_ERR_MSG)
-                    .setAttr(Constants.TITLE, "login")
                     .renderJsp(ViewConstants.LOGIN)
         else {
             val username = getPara(UserConstants.USERNAME)

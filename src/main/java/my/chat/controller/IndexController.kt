@@ -1,7 +1,6 @@
 package my.chat.controller
 
 import com.jfinal.core.Controller
-import my.chat.common.Constants
 
 /**
  * @author lyu lyusantu@gmail.com
@@ -17,6 +16,10 @@ import my.chat.common.Constants
 class IndexController : Controller() {
 
     fun index() {
-        setAttr(Constants.TITLE, "home").renderJsp("/index.jsp")
+        renderJsp("/index.jsp")
+    }
+
+    fun home(){
+        renderJsp("home.jsp")
     }
 }

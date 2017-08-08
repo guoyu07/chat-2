@@ -30,7 +30,9 @@
                     <h3 class="m-b-xxs">发表状态</h3>
                     <form action="/tweets/add" method="post">
                         <textarea class="form-control" rows="4" name="content"></textarea>
-                        <button type="submit" class="btn btn-block btn-outline btn-primary" style="margin-top: 5px;">发布</button>
+                        <button type="submit" class="btn btn-block btn-outline btn-primary" style="margin-top: 5px;">
+                            发布
+                        </button>
                     </form>
                 </div>
 
@@ -54,93 +56,22 @@
                                             <div class="feed-activity-list" id="newest-list">
                                                 <!-- 列表 -->
                                             </div>
-                                            <div id="loadMore" style="display: none;">
-                                                <button type="button" class="btn btn-block btn-outline btn-primary"
-                                                        onclick="loadMore();">加载更多
-                                                </button>
-                                                <%--<a class="btn btn-primary btn-rounded btn-block" href="#"><i class="fa fa-refresh"></i> 加载更多</a>--%>
-                                            </div>
-                                            <div id="loadEnd" style="display: none;">
-                                                <div class="well">
-                                                    没有数据可以加载了 :)
-                                                </div>
-                                            </div>
                                         </div>
                                         <div class="tab-pane" id="tab-2">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th>状态</th>
-                                                    <th>标题</th>
-                                                    <th>开始时间</th>
-                                                    <th>结束时间</th>
-                                                    <th>说明</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <span class="label label-primary"><i class="fa fa-check"></i> 已完成</span>
-                                                    </td>
-                                                    <td>
-                                                        文档在线预览功能
-                                                    </td>
-                                                    <td>
-                                                        11月7日 22:03
-                                                    </td>
-                                                    <td>
-                                                        11月7日 20:11
-                                                    </td>
-                                                    <td>
-                                                        <p class="small">
-                                                            已经测试通过
-                                                        </p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="label label-primary"><i class="fa fa-check"></i> 解决中</span>
-                                                    </td>
-                                                    <td>
-                                                        会员登录
-                                                    </td>
-                                                    <td>
-                                                        11月7日 22:03
-                                                    </td>
-                                                    <td>
-                                                        11月7日 20:11
-                                                    </td>
-                                                    <td>
-                                                        <p class="small">
-                                                            测试中
-                                                        </p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="label label-primary"><i class="fa fa-check"></i> 解决中</span>
-                                                    </td>
-                                                    <td>
-                                                        会员积分
-                                                    </td>
-                                                    <td>
-                                                        11月7日 22:03
-                                                    </td>
-                                                    <td>
-                                                        11月7日 20:11
-                                                    </td>
-                                                    <td>
-                                                        <p class="small">
-                                                            未测试
-                                                        </p>
-                                                    </td>
-
-                                                </tr>
-
-
-                                                </tbody>
-                                            </table>
-
+                                            <div class="feed-activity-list" id="hotest-list">
+                                                <!-- 列表 -->
+                                            </div>
+                                        </div>
+                                        <div id="loadMore" style="display: none;">
+                                            <button type="button" class="btn btn-block btn-outline btn-primary"
+                                                    onclick="loadMore();">加载更多
+                                            </button>
+                                            <%--<a class="btn btn-primary btn-rounded btn-block" href="#"><i class="fa fa-refresh"></i> 加载更多</a>--%>
+                                        </div>
+                                        <div id="loadEnd" style="display: none;">
+                                            <div class="well">
+                                                没有数据可以加载了 :)
+                                            </div>
                                         </div>
                                     </div>
 
@@ -153,40 +84,10 @@
             </div>
         </div>
     </div>
+    <!-- right -->
     <div class="col-sm-3">
         <div class="wrapper wrapper-content project-manager">
-            <h4>项目描述</h4>
-            <img src="${pageContext.request.contextPath}/static/img/wenku_logo.png" class="img-responsive">
-            <p class="small">
-                <br>在线互动式文档分享平台，在这里，您可以和千万网友分享自己手中的文档，全文阅读其他用户的文档，同时，也可以利用分享文档获取的积分下载文档
-            </p>
-            <p class="small font-bold">
-                <span><i class="fa fa-circle text-warning"></i> 高优先级</span>
-            </p>
-            <h5>项目标签</h5>
-            <ul class="tag-list" style="padding: 0">
-                <li><a href="project_detail.html"><i class="fa fa-tag"></i> 文档</a>
-                </li>
-                <li><a href="project_detail.html"><i class="fa fa-tag"></i> 分享</a>
-                </li>
-                <li><a href="project_detail.html"><i class="fa fa-tag"></i> 下载</a>
-                </li>
-            </ul>
-            <h5>项目文档</h5>
-            <ul class="list-unstyled project-files">
-                <li><a href="project_detail.html"><i class="fa fa-file"></i> Project_document.docx</a>
-                </li>
-                <li><a href="project_detail.html"><i class="fa fa-file-picture-o"></i> Logo_zender_company.jpg</a>
-                </li>
-                <li><a href="project_detail.html"><i class="fa fa-stack-exchange"></i> Email_from_Alex.mln</a>
-                </li>
-                <li><a href="project_detail.html"><i class="fa fa-file"></i> Contract_20_11_2014.docx</a>
-                </li>
-            </ul>
-            <div class="m-t-md">
-                <a href="project_detail.html#" class="btn btn-xs btn-primary">添加文档</a>
-
-            </div>
+            <h4>打广告</h4>
         </div>
     </div>
 </div>
@@ -205,7 +106,7 @@
             simpleLoad(btn, false)
         })
         list(1, 'new');
-//        loadNewst(1,'hot');
+        list(1, 'hot');
     });
     function simpleLoad(btn, state) {
         if (state) {
@@ -288,7 +189,6 @@
                     html += '</div>';
                     html += '</div>';
                 }
-                $('#newest-list').append(html);
                 if (data.pageNumber < data.totalPage) {
                     $('#loadMore').show();
                 } else {
@@ -297,8 +197,10 @@
                 }
                 if (way == 'hot') {
                     hotPage = data.pageNumber + 1;
+                    $('#hotest-list').append(html);
                 } else if (way == 'new') {
                     newPage = data.pageNumber + 1;
+                    $('#newest-list').append(html);
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {

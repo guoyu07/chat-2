@@ -18,11 +18,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/ueditor/themes/default/css/ueditor.css"/>
 </head>
 <body class="gray-bg">
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-        <h2><a class="btn-link" href="/article/${way}?p=${p}">返回</a></h2>
-    </div>
-</div>
 <div class="wrapper wrapper-content  animated fadeInRight article">
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1">

@@ -19,6 +19,7 @@
     <link href="${pageContext.request.contextPath}/static/css/font-awesome.min.css-v=4.4.0.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/css/animate.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/css/style.min.css-v=4.0.0.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css" media="all">
     <%--<base target="_blank">--%>
 </head>
 <body class="gray-bg">
@@ -29,13 +30,13 @@
                 <div class="ibox-content">
                     <h3 class="m-b-xxs">发表状态</h3>
                     <form action="/tweets/add" method="post">
-                        <textarea class="form-control" rows="4" name="content"></textarea>
+                        <textarea class="layui-textarea" id="lay_editor" name="content"
+                                  style="display: none"></textarea>
                         <button type="submit" class="btn btn-block btn-outline btn-primary" style="margin-top: 5px;">
                             发布
                         </button>
                     </form>
                 </div>
-
                 <div class="ibox-content">
                     <div class="row m-t-sm">
                         <div class="col-sm-12">
@@ -74,9 +75,7 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -95,7 +94,17 @@
 <script src="${pageContext.request.contextPath}/static/js/bootstrap.min.js-v=3.3.5.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/content.min.js-v=1.0.0.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/plugins/layer/layer.min.js"></script>
+<script src="${pageContext.request.contextPath}/layui/layui.js" charset="utf-8"></script>
 <script>
+    layui.use('layedit', function () {
+        var layedit = layui.layedit, $ = layui.jquery;
+        //自定义工具栏
+        layedit.build('lay_editor', {
+            tool: ['strong', 'italic', 'underline', '|', 'face', 'link', 'unlink']
+            , height: 100
+        })
+    });
+
     var newPage = 1;
     var hotPage = 1;
 
@@ -108,6 +117,14 @@
         list(1, 'new');
         list(1, 'hot');
     });
+
+    $('form').submit(function () {
+        if ($.trim($('#lay_editor').val()) == '') {
+            layer.msg('请输入状态内容..', {icon: 5, offset: 200, time: 1000});
+            return false;
+        }
+    })
+
     function simpleLoad(btn, state) {
         if (state) {
             btn.children().addClass("fa-spin");
@@ -139,7 +156,7 @@
         $.ajax({
             async: false,
             type: "GET",
-            url: "/tweets/list",
+            url: "${pageContext.request.contextPath}/tweets/list",
             data: {
                 p: p,
                 way: way
@@ -177,13 +194,16 @@
                     html += '<i class="fa fa-thumbs-o-up"></i> 点赞 0';
                     html += '</button>';
                     html += '<button class="btn btn-white btn-xs">';
-                    html += '<i class="fa fa-comments-o"></i> 评论 ' + data.list[i].comments;
+                    html += '<i class="fa fa-pencil-square-o"></i> 评论 ' + data.list[i].comments;
                     html += '</button>';
                     html += '<button class="btn btn-white btn-xs">';
                     html += '<i class="fa fa fa-star"></i> 收藏 0';
                     html += '</button>';
                     html += '<button class="btn btn-white btn-xs">';
                     html += '<i class="fa fa-share"></i> 分享';
+                    html += '</button>';
+                    html += '<button class="btn btn-white btn-xs" onclick="showDetail(' + data.list[i].id + ');">';
+                    html += '<i class=""></i> 查看详情';
                     html += '</button>';
                     html += '</div>';
                     html += '</div>';
@@ -206,6 +226,10 @@
             error: function (XMLHttpRequest, textStatus, errorThrown) {
             }
         });
+    }
+
+    function showDetail(id) {
+        location.href = '${pageContext.request.contextPath}/tweets/detail?id=' + id;
     }
 </script>
 </body>

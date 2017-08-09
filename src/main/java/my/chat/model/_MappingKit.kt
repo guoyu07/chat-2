@@ -24,6 +24,7 @@ object _MappingKit {
         arp.addMapping("article", "id", Article::class.java)
         arp.addMapping("article_comment", "id", ArticleComment::class.java)
         arp.addMapping("tweets", "id", Tweets::class.java)
+        arp.addMapping("tweets_comment", "id", TweetsComment::class.java)
     }
 }
 

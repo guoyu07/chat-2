@@ -99,9 +99,17 @@
     layui.use('layedit', function () {
         var layedit = layui.layedit, $ = layui.jquery;
         //自定义工具栏
-        layedit.build('lay_editor', {
+        var index = layedit.build('lay_editor', {
             tool: ['strong', 'italic', 'underline', '|', 'face', 'link', 'unlink']
             , height: 100
+        })
+
+        $('form').submit(function () {
+            var content = layedit.getContent(index);
+            if ($.trim(content) == '') {
+                layer.msg('请填写内容..', {icon: 5, offset: 200, time: 2000});
+                return false;
+            }
         })
     });
 
@@ -117,13 +125,6 @@
         list(1, 'new');
         list(1, 'hot');
     });
-
-    $('form').submit(function () {
-        if ($.trim($('#lay_editor').val()) == '') {
-            layer.msg('请输入状态内容..', {icon: 5, offset: 200, time: 1000});
-            return false;
-        }
-    })
 
     function simpleLoad(btn, state) {
         if (state) {
@@ -197,7 +198,7 @@
                     html += '<i class="fa fa-pencil-square-o"></i> 评论 ' + data.list[i].comments;
                     html += '</button>';
                     html += '<button class="btn btn-white btn-xs">';
-                    html += '<i class="fa fa fa-star"></i> 收藏 0';
+                    html += '<i class="fa fa fa-star-o"></i> 收藏 0';
                     html += '</button>';
                     html += '<button class="btn btn-white btn-xs">';
                     html += '<i class="fa fa-share"></i> 分享';

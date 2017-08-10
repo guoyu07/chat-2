@@ -92,11 +92,11 @@
 
                 </li>
                 <li>
-                    <a class="J_menuItem" href="chat.jsp"><i class="fa fa-commenting-o"></i> <span
+                    <a class="J_menuItem" href="/social"><i class="fa fa-commenting-o"></i> <span
                             class="nav-label">聊天室</span></a>
                 </li>
                 <li>
-                    <a class="J_menuItem" href="robot.jsp"><i class="fa fa-android"></i> <span
+                    <a class="J_menuItem" href="/social/robot"><i class="fa fa-android"></i> <span
                             class="nav-label">robot</span></a>
                 </li>
                 <li>
@@ -154,6 +154,15 @@
                         </li>
                         <li><a class="J_menuItem" href="mail_compose.html">写信</a>
                         </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-flickr"></i>
+                        <span class="nav-label">其它 </span>
+                        <span class="label label-warning pull-right">0</span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="#">历史上的今天</a></li>
                     </ul>
                 </li>
             </ul>

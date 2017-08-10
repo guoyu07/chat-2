@@ -1,0 +1,6 @@
+
+2017-08-07 15:52:41
+[ERROR]-[Thread: main]-[org.ansj.library.AmbiguityLibrary.init()]: Init ambiguity library error :org.ansj.exception.LibraryException:  path :library/ambiguity.dic file:C:\Users\Administrator\Desktop\chat\library\ambiguity.dic not found or can not to read, path: library/ambiguity.dic
+
+2017-08-07 15:52:41
+[ERROR]-[Thread: main]-[org.ansj.library.DicLibrary.init()]: Init ambiguity library error :org.ansj.exception.LibraryException:  path :library/default.dic file:C:\Users\Administrator\Desktop\chat\library\default.dic not found or can not to read, path: library/default.dic

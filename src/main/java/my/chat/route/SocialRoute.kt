@@ -1,7 +1,7 @@
 package my.chat.route
 
 import com.jfinal.config.Routes
-import my.chat.controller.APIController
+import my.chat.controller.SocialController
 
 /**
  * @author lyu lyusantu@gmail.com
@@ -14,10 +14,10 @@ import my.chat.controller.APIController
  * *
  * @date ${date} ${time}
  */
-class APIRoute : Routes() {
+class SocialRoute : Routes() {
 
     override fun config() {
         baseViewPath = "/WEB-INF/view"
-        add("/api", APIController::class.java)
+        add("/social", SocialController::class.java)
     }
 }

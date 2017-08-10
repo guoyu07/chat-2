@@ -91,8 +91,8 @@
         html += '</div>';
         $.ajax({
             async : false,
-            type : "GET",
-            url : "${pageContext.request.contextPath}/api/tuling",
+            type : "POST",
+            url : "${pageContext.request.contextPath}/social/robot",
             data : {
                 question : msg.val()
             },

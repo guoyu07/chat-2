@@ -47,7 +47,7 @@ class Config : JFinalConfig() {
         routes.add("/", IndexController::class.java)
         routes.add(UserRoute())
         routes.add(MusicRoute())
-        routes.add(APIRoute())
+        routes.add(SocialRoute())
         routes.add(ArticleRoute())
         routes.add(TweetsRoute())
     }

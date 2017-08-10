@@ -7,15 +7,7 @@ object ViewConstants {
 
     val LOGIN = "login.jsp"
 
-    val ROBOT = "robot.jsp"
-
-    val DREAM = "dream.jsp"
-
-    val PHONE = "phone.jsp"
-
     val PROFILE = "profile.jsp"
-
-    val WEATHER = "weather.jsp"
 
     val REGISTER = "register.jsp"
 
@@ -25,5 +17,4 @@ object ViewConstants {
 
     val WAITACTIVATE = "waitActivate.jsp"
 
-    val TODAYONHISTORY = "todayOnHistory.jsp"
 }

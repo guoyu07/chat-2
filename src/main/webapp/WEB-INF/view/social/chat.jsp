@@ -149,14 +149,11 @@
     var websocket = null;
     var auth = new Object();
     auth.to = '';
-    auth.toEmail = '';
+    auth.toName = '';
     auth.msg = '';
     auth.from = '${sessionScope.loginUser.id}';
     auth.fromImg = '${sessionScope.loginUser.picSummary}';
-    if(auth.fromImg == ''){
-        auth.fromImg = "${sessionScope.loginUser.picSummary}";
-    }
-    auth.fromEmail = '${fn:substring(sessionScope.loginUser.email,0 ,fn:indexOf(sessionScope.loginUser.email,"@") )}';
+    auth.fromName = '${sessionScope.loginUser.nickname}';
 
     //判断当前浏览器是否支持WebSocket
     if ('WebSocket' in window) {
@@ -168,12 +165,12 @@
 
     //连接发生错误的回调方法
     websocket.onerror = function () {
-        setMessageInnerHTML("连接失败!");
+        console.log("连接失败");
     };
 
     //连接成功建立的回调方法
     websocket.onopen = function (event) {
-//        setMessageInnerHTML("连接成功!");
+        console.log("连接成功");
     }
 
     //接收到消息的回调方法
@@ -183,7 +180,7 @@
 
     //连接关闭的回调方法
     websocket.onclose = function () {
-//        setMessageInnerHTML("关闭连接!");
+        console.log("关闭连接");
     }
 
     //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
@@ -197,9 +194,16 @@
         var html = '';
         html += '<div class="chat-message">';
         <!-- 需要处理照片为发消息人的照片 -->
-        html += '<img class="message-avatar" src="'+auth.fromImg+'" alt="" width="64px" height="64px">';
+        html += '<img class="message-avatar" src="';
+        if(json.from == '${sessionScope.loginUser.id}') {
+            html += '${sessionScope.loginUser.picSummary}';
+        }else{
+            // html += auth.fromImg;
+            html += '${pageContext.request.contextPath}/images/avatar.png';
+        }
+        html += '" alt="" width="64px" height="64px">';
         html += '<div class="message">';
-        html += '<a class="message-author" href="' + json.from + '">' + json.fromEmail + '</a>';
+        html += '<a class="message-author" href="' + json.from + '">' + json.fromName + '</a>';
         html += '<span class="message-date"><%=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())%></span>';
         html += '<span class="message-content">';
         html += json.content;
@@ -221,7 +225,7 @@
             var message = $('#message');
             auth.msg = message.val();
             auth.to = '';
-            auth.toEmail = '';
+            auth.toName = '';
             websocket.send(getMsg());
         } else {
             layer.msg('登录后才可以发送消息哦', function () {
@@ -235,11 +239,13 @@
         var json = '';
         json += '{';
         json += '"to":"' + auth.to + '",';
-        json += '"toEmail":"' + auth.toEmail + '",';
+        json += '"toName":"' + auth.toName + '",';
         json += '"content":"' + auth.msg + '",';
         json += '"from":"' + auth.from + '",';
-        json += '"fromEmail":"' + auth.fromEmail + '"';
+        json += '"fromName":"' + auth.fromName + '"';
+        // json += ',"fromImg":"' + auth.fromImg + '"';
         json += '}';
+        console.log(json);
         return json;
     }
 </script>

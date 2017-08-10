@@ -67,7 +67,7 @@
                                                             class="fa fa-comments"></i> 评论
                                                     </button>
                                                     <button class="btn btn-white btn-xs">
-                                                        <i class="fa fa fa-star"></i> 收藏 0
+                                                        <i class="fa fa fa-star-o"></i> 收藏 0
                                                     </button>
                                                     <button class="btn btn-white btn-xs"><i
                                                             class="fa fa-share"></i>
@@ -98,11 +98,8 @@
                                                                    value="${sessionScope.loginUser.id}"/>
                                                             <textarea class="form-control" placeholder="填写评论..." id="content_focus"></textarea>
                                                             <div id="content_hide" style="display: none;">
-                                                            <textarea class="layui-textarea" id="lay_editor" name="content"
-                                                                      style="display: none" placeholder="输入评论.."></textarea>
-                                                            <button type="submit" class="btn btn-block btn-outline btn-primary" style="margin-top: 5px;">
-                                                                确定
-                                                            </button>
+                                                                <textarea class="layui-textarea" id="lay_editor" name="content" style="display: none" placeholder="输入评论.."></textarea>
+                                                                <button type="submit" class="btn btn-block btn-outline btn-primary" style="margin-top: 5px;">确定</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -135,9 +132,17 @@
     layui.use('layedit', function () {
         var layedit = layui.layedit, $ = layui.jquery;
         //自定义工具栏
-        layedit.build('lay_editor', {
+        var index = layedit.build('lay_editor', {
             tool: ['strong', 'italic', 'underline', '|', 'face', 'link', 'unlink']
             , height: 100
+        })
+
+        $('form').submit(function () {
+            var content = layedit.getContent(index);
+            if ($.trim(content) == '') {
+                layer.msg('请填写内容..', {icon: 5, offset: 200, time: 2000});
+                return false;
+            }
         })
     });
 
@@ -149,15 +154,6 @@
             $('#lay_editor').focus();
         });
     });
-
-    $('form').submit(function () {
-        if ($.trim($('#lay_editor').val()) == '') {
-            layer.msg('请填写评论内容', function () {
-                $('#content').focus();
-            });
-            return false;
-        }
-    })
 
     var pages = '${list.totalPage}';
 

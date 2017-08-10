@@ -28,7 +28,6 @@
             var $this = this.element,
                 $toggle = this.settings.toggle,
                 obj = this;
-
             if (this.isIE() <= 9) {
                 $this.find("li.active").has("ul").children("ul").collapse("show");
                 $this.find("li").not(".active").has("ul").children("ul").collapse("hide");
@@ -59,7 +58,7 @@
                 $(this).parent("li").toggleClass("active").children("ul").collapse("toggle");
 
                 if ($toggle) {
-                    $(this).parent("li").siblings().removeClass("active").children("../error/ie.html").collapse("hide");
+                    $(this).parent("li").siblings().removeClass("active").children("index").collapse("hide");
                 }
 
             });

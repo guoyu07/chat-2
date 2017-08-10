@@ -20,10 +20,62 @@
     <link href="${pageContext.request.contextPath}/static/css/font-awesome.min.css-v=4.4.0.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/css/animate.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/css/style.min.css-v=4.0.0.css" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/ueditor/themes/default/css/ueditor.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css" media="all">
     <%--<base target="_blank">--%>
 </head>
+<style>
+    .site-demo-upload {
+        position: relative;
+        background: #e2e2e2;
+    }
 
+    .site-demo-upload, .site-demo-upload img {
+        width: 200px;
+        height: 200px;
+        border-radius: 100%;
+    }
+
+    .site-demo-upload .site-demo-upbar {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -18px 0 0 -56px;
+    }
+
+    .site-demo-upload .layui-upload-button {
+        background-color: rgba(0, 0, 0, .2);
+        color: rgba(255, 255, 255, 1);
+    }
+
+    .layui-box, .layui-box * {
+        -webkit-box-sizing: content-box !important;
+        -moz-box-sizing: content-box !important;
+        box-sizing: content-box !important;
+    }
+
+    .layui-upload-button input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 10;
+        font-size: 100px;
+        width: 100%;
+        height: 100%;
+    }
+
+    .layui-upload-icon {
+        display: block;
+        margin: 0 15px;
+        text-align: center;
+    }
+
+    .layui-upload-icon i {
+        margin-right: 5px;
+        vertical-align: top;
+        font-size: 20px;
+        color: #5FB878;
+    }
+</style>
 <body class="gray-bg">
 <div class="wrapper wrapper-content">
     <div class="row animated fadeInRight">
@@ -34,14 +86,30 @@
                 </div>
                 <div>
                     <div class="ibox-content no-padding border-left-right">
-                        <img alt="image" class="img-responsive" src="${sessionScope.loginUser.homePagePic}">
+                        <c:if test="${sessionScope.loginUser.homePagePic == null}">
+                            <div class="site-demo-upload">
+                                <img id="LAY_demo_upload" src="/images/homepage.jpg">
+                                <div class="site-demo-upbar">
+                                    <div class="layui-box layui-upload-button">
+                                        <form class="layui-form layui-form-pane" id="uploadForm" action="" method="post" enctype="multipart/form-data" >
+                                            <input type="file" name="file" enc class="layui-upload-file" id="test">
+                                        </form>
+                                        <span class="layui-upload-icon">
+                                            <i class="layui-icon"></i>上传图片
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:if>
+                        <c:if test="${sessionScope.loginUser.homePagePic != null}">
+                            <img alt="image" class="img-responsive" src="${sessionScope.loginUser.homePagePic}">
+                        </c:if>
                     </div>
                     <div class="ibox-content profile-content">
                         <h4><strong>${sessionScope.loginUser.nickname}</strong></h4>
-                        <p><i class="fa fa-map-marker"></i> ${sessionScope.loginUser.addressDetails}</p>
-                        <h5>
-                            关于我
-                        </h5>
+                        <p><i class="fa fa-map-marker"></i>&nbsp;&nbsp;${sessionScope.loginUser.addressDetails}</p>
+                        <br/>
+                        <h5>关于我</h5>
                         <p>
                             ${sessionScope.loginUser.description}
                         </p>
@@ -59,19 +127,36 @@
                                 <h5><strong>0</strong> 关注者</h5>
                             </div>
                         </div>
+                        <br/>
                         <div class="user-button">
                             <div class="row">
                                 <c:if test="${way == 'my'}">
                                     <div class="col-sm-6">
-                                        <a data-toggle="modal" class="btn btn-primary btn-sm btn-block" href="#modal-form"><i class="fa fa-refresh"></i> 修改资料</a>
+                                        <a data-toggle="modal" class="btn btn-primary btn-sm btn-block"
+                                           href="#modal-form"><i class="fa fa-refresh fa-spin"></i> 修改资料</a>
                                     </div>
+                                    <c:if test="${sessionScope.loginUser.homePagePic != null }">
+                                        <div class="col-sm-6">
+                                            <a data-toggle="modal" class="btn btn-primary btn-sm btn-block"
+                                               href="javascript:;" onclick="changeBg();"><i class="fa fa-refresh"></i> 修改图片</a>
+                                            <div style="display: none;">
+                                            <form class="layui-form layui-form-pane" id="uploadForm1" action="" method="post" enctype="multipart/form-data" >
+                                                <input type="file" name="file" enc class="layui-upload-file" id="test1">
+                                            </form>
+                                            </div>
+                                        </div>
+                                    </c:if>
                                 </c:if>
                                 <c:if test="${way != 'my'}">
                                     <div class="col-sm-6">
-                                        <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> 发送消息</button>
+                                        <button type="button" class="btn btn-primary btn-sm btn-block"><i
+                                                class="fa fa-envelope"></i> 发送消息
+                                        </button>
                                     </div>
                                     <div class="col-sm-6">
-                                        <button type="button" class="btn btn-default btn-sm btn-block"><i class="fa fa-coffee"></i> 赞助</button>
+                                        <button type="button" class="btn btn-default btn-sm btn-block"><i
+                                                class="fa fa-coffee"></i> 赞助
+                                        </button>
                                     </div>
                                 </c:if>
                             </div>
@@ -80,6 +165,7 @@
                 </div>
             </div>
         </div>
+        <!--
         <div class="col-sm-8">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -175,6 +261,7 @@
                 </div>
             </div>
         </div>
+        -->
     </div>
 </div>
 
@@ -187,8 +274,8 @@
                         <h3 class="m-t-none m-b">修改信息</h3>
                         <p>请填写要修改的个人信息</p>
                         <form action="/user/modifyInfo" method="post">
-                            <input type="hidden" name="user.id" value="${sessionScope.loginUser.id}" />
-                            <input type="hidden" name="user.description" id="desc" />
+                            <input type="hidden" name="user.id" value="${sessionScope.loginUser.id}"/>
+                            <input type="hidden" name="user.description" id="desc"/>
                             <div class="form-group">
                                 <label>邮箱：</label>
                                 ${sessionScope.loginUser.email}
@@ -199,20 +286,29 @@
                             </div>
                             <div class="form-group">
                                 <label>性别：</label>
-                                <input type="radio" <c:if test="${sessionScope.loginUser.gender == 0}">checked="checked"</c:if> value="0" name="user.gender">  女
-                                <input type="radio" <c:if test="${sessionScope.loginUser.gender == 1}">checked="checked"</c:if> value="1" name="user.gender">  男
-                                <input type="radio" <c:if test="${sessionScope.loginUser.gender == 2}">checked="checked"</c:if> value="2" name="user.gender">  未知
-                            <div class="form-group">
-                                <label>住址：</label>
-                                <input type="text" placeholder="请输入住址" class="form-control" id="addressDetails" name="user.addressDetails" value="${sessionScope.loginUser.addressDetails}">
-                            </div>
-                            <div class="form-group">
-                                <label>个人描述：</label>
-                                <script id="container" type="text/plain">${sessionScope.loginUser.description}</script>
-                            </div>
-                            <div>
-                                <button type="submit" class="btn btn-primary btn-sm btn-block"><i></i> 更改 </button>
-                            </div>
+                                <input type="radio"
+                                       <c:if test="${sessionScope.loginUser.gender == 0}">checked="checked"</c:if>
+                                       value="0" name="user.gender"> 女
+                                <input type="radio"
+                                       <c:if test="${sessionScope.loginUser.gender == 1}">checked="checked"</c:if>
+                                       value="1" name="user.gender"> 男
+                                <input type="radio"
+                                       <c:if test="${sessionScope.loginUser.gender == 2}">checked="checked"</c:if>
+                                       value="2" name="user.gender"> 未知
+                                <div class="form-group">
+                                    <label>住址：</label>
+                                    <input type="text" placeholder="请输入住址" class="form-control" id="addressDetails"
+                                           name="user.addressDetails" value="${sessionScope.loginUser.addressDetails}">
+                                </div>
+                                <div class="form-group">
+                                    <label>个人描述：</label>
+                                    <textarea class="layui-textarea" id="lay_editor" name="description"
+                                              style="display: none"
+                                              rows="4">${sessionScope.loginUser.description}</textarea>
+                                </div>
+                                <div>
+                                    <button type="submit" class="btn btn-primary btn-sm btn-block"><i></i> 更改</button>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -227,33 +323,60 @@
 <script src="${pageContext.request.contextPath}/static/js/plugins/peity/jquery.peity.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/demo/peity-demo.min.js"></script>
 <script src="${pageContext.request.contextPath}/layer/layer.js" type="text/javascript"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.all.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script src="${pageContext.request.contextPath}/layui/layui.js" charset="utf-8"></script>
 </body>
 <script>
-    var ue = UE.getEditor('container',{
-        toolbars:[['bold','indent','italic','underline','strikethrough']
-        /*,['fontfamily','fontsize','forecolor','emotion','preview']*/
-        ],
-        wordCount:true,
-        maximumWords:200,
-        elementPathEnabled:false,
-        initialFrameHeight:200
+    layui.use('layedit', function () {
+        var layedit = layui.layedit, $ = layui.jquery;
+        //自定义工具栏
+        var index = layedit.build('lay_editor', {
+            tool: ['face', 'link', 'unlink']
+            , height: 160
+        });
+
+        $('form').submit(function () {
+            if ($.trim($('#addressDetails').val()) == '') {
+                layer.msg('请输入住址详情', {icon: 5, offset: '200px'});
+                return false;
+            }
+            var content = layedit.getContent(index);
+            if ($.trim(content) == '') {
+                layer.msg('请输入个人描述', {icon: 5, offset: '200px'});
+                return false;
+            }
+            $('#desc').val(content);
+        });
     });
 
-    $('form').submit(function () {
-        if ($.trim($('#addressDetails').val()) == '') {
-            layer.msg('请输入住址详情', {icon: 5, offset: '200px'});
-            return false;
-        }
-        var content = ue.getContent();
-        if ($.trim(content) == '') {
-            layer.msg('请输入个人描述', {icon: 5, offset: '200px'});
-            return false;
-        }
-        $('#desc').val(content);
-    })
+    layui.use('upload', function () {
+        layui.upload({
+            url: '/user/uploadMyBg'
+            , elem: '#test'
+            ,ext: 'jpg|png|gif'
+            ,title: '主页图片'
+            , method: 'post'
+            , success: function (data) {
+                location.href = data.url;
+            }
+        });
+    });
+
+    layui.use('upload', function () {
+        layui.upload({
+            url: '/user/uploadMyBg'
+            , elem: '#test1'
+            ,ext: 'jpg|png|gif'
+            ,title: '主页图片'
+            , method: 'post'
+            , success: function (data) {
+                location.href = data.url;
+            }
+        });
+    });
+
+    function changeBg() {
+        $('#test1').click();
+    }
 </script>
 </body>
 </html>

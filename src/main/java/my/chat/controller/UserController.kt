@@ -132,6 +132,30 @@ class UserController : Controller() {
         }
     }
 
+    fun uploadMyBg() {
+        var file = getFile("file")
+        val path = "/upload/" + file.fileName
+        println(path)
+        user = getSessionAttr(UserConstants.LOGIN_USER)
+        user!!.setHomePagePic(path).update()
+        setSessionAttr(UserConstants.LOGIN_USER, user)
+        var map = hashMapOf<String, String>()
+        map.put("url", "/user/profile")
+        renderJson(map)
+    }
+
+    fun uploadMyAvatar(){
+        var file = getFile("file")
+        val path = "/upload/" + file.fileName
+        println(path)
+        user = getSessionAttr(UserConstants.LOGIN_USER)
+        user!!.setPicSummary(path).update()
+        setSessionAttr(UserConstants.LOGIN_USER, user)
+        var map = hashMapOf<String, String>()
+        map.put("url", "/user/modifyAvatar")
+        renderJson(map)
+    }
+
     // 修改密码
     fun modifyPwd() {
         if ("POST".equals(request.method, ignoreCase = true)) {

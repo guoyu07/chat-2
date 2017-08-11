@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -86,47 +87,52 @@
                 </div>
                 <div>
                     <div class="ibox-content no-padding border-left-right">
-                        <c:if test="${sessionScope.loginUser.homePagePic == null}">
-                            <div class="site-demo-upload">
-                                <img id="LAY_demo_upload" src="/images/homepage.jpg">
-                                <div class="site-demo-upbar">
-                                    <div class="layui-box layui-upload-button">
-                                        <form class="layui-form layui-form-pane" id="uploadForm" action="" method="post" enctype="multipart/form-data" >
-                                            <input type="file" name="file" enc class="layui-upload-file" id="test">
-                                        </form>
-                                        <span class="layui-upload-icon">
-                                            <i class="layui-icon"></i>上传图片
-                                        </span>
+                        <c:if test="${way == 'my'}">
+                            <c:if test="${sessionScope.loginUser.homePagePic == null}">
+                                <div class="site-demo-upload">
+                                    <img id="LAY_demo_upload" src="/images/homepage.jpg">
+                                    <div class="site-demo-upbar">
+                                        <div class="layui-box layui-upload-button">
+                                            <form class="layui-form layui-form-pane" id="uploadForm" action="" method="post" enctype="multipart/form-data" >
+                                                <input type="file" name="file" enc class="layui-upload-file" id="test">
+                                            </form>
+                                            <span class="layui-upload-icon">
+                                                <i class="layui-icon"></i>上传图片
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </c:if>
-                        <c:if test="${sessionScope.loginUser.homePagePic != null}">
-                            <img alt="image" class="img-responsive" src="${sessionScope.loginUser.homePagePic}">
+                            </c:if>
+                            <c:if test="${sessionScope.loginUser.homePagePic != null}">
+                                <img alt="image" class="img-responsive" src="${sessionScope.loginUser.homePagePic}">
+                            </c:if>
                         </c:if>
                     </div>
                     <div class="ibox-content profile-content">
-                        <h4><strong>${sessionScope.loginUser.nickname}</strong></h4>
-                        <p><i class="fa fa-map-marker"></i>&nbsp;&nbsp;${sessionScope.loginUser.addressDetails}</p>
-                        <br/>
-                        <h5>关于我</h5>
-                        <p>
-                            ${sessionScope.loginUser.description}
-                        </p>
-                        <div class="row m-t-lg">
-                            <div class="col-sm-4">
-                                <span class="bar"></span>
-                                <h5><strong>0</strong> 文章</h5>
+                        <c:if test="${way == 'my'}">
+                            <h4><strong>${sessionScope.loginUser.nickname}</strong></h4>
+                            <p><i class="fa fa-map-marker"></i>&nbsp;&nbsp;${sessionScope.loginUser.addressDetails}</p>
+                            <br/>
+                            <h5>关于我</h5>
+                            <p>
+                                ${sessionScope.loginUser.description}
+                            </p>
+                            <div class="row m-t-lg">
+                                <div class="col-sm-4">
+                                    <span class="bar"></span>
+                                    <h5><strong>0</strong> 文章</h5>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span class="line"></span>
+                                    <h5><strong>0</strong> 关注</h5>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span class="bar"></span>
+                                    <h5><strong>0</strong> 关注者</h5>
+                                </div>
                             </div>
-                            <div class="col-sm-4">
-                                <span class="line"></span>
-                                <h5><strong>0</strong> 关注</h5>
-                            </div>
-                            <div class="col-sm-4">
-                                <span class="bar"></span>
-                                <h5><strong>0</strong> 关注者</h5>
-                            </div>
-                        </div>
+                        </c:if>
+
                         <br/>
                         <div class="user-button">
                             <div class="row">
@@ -272,7 +278,7 @@
                 <div class="row">
                     <div style="width: 100%;">
                         <h3 class="m-t-none m-b">修改信息</h3>
-                        <p>请填写要修改的个人信息</p>
+                        <p>请填写要修改的个人信息</p><br/>
                         <form action="/user/modifyInfo" method="post">
                             <input type="hidden" name="user.id" value="${sessionScope.loginUser.id}"/>
                             <input type="hidden" name="user.description" id="desc"/>
@@ -295,20 +301,28 @@
                                 <input type="radio"
                                        <c:if test="${sessionScope.loginUser.gender == 2}">checked="checked"</c:if>
                                        value="2" name="user.gender"> 未知
-                                <div class="form-group">
-                                    <label>住址：</label>
-                                    <input type="text" placeholder="请输入住址" class="form-control" id="addressDetails"
-                                           name="user.addressDetails" value="${sessionScope.loginUser.addressDetails}">
-                                </div>
-                                <div class="form-group">
-                                    <label>个人描述：</label>
-                                    <textarea class="layui-textarea" id="lay_editor" name="description"
-                                              style="display: none"
-                                              rows="4">${sessionScope.loginUser.description}</textarea>
-                                </div>
-                                <div>
-                                    <button type="submit" class="btn btn-primary btn-sm btn-block"><i></i> 更改</button>
-                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>生日：</label>
+                                <input class="layui-input" placeholder="自定义日期格式" name="user.borndate"
+                                <c:if test="${sessionScope.loginUser.borndate != null}">
+                                       value='<fmt:formatDate value="${sessionScope.loginUser.borndate}" pattern="yyyy-MM-dd"/>'
+                                </c:if> readonly="readonly"
+                                       onclick="layui.laydate({elem: this,festival: true,istime: true, format: 'YYYY-MM-DD'})">
+                            </div>
+                            <div class="form-group">
+                                <label>住址：</label>
+                                <input type="text" placeholder="请输入住址" class="form-control" id="addressDetails"
+                                       name="user.addressDetails" value="${sessionScope.loginUser.addressDetails}">
+                            </div>
+                            <div class="form-group">
+                                <label>个人描述：</label>
+                                <textarea class="layui-textarea" id="lay_editor" name="description"
+                                          style="display: none"
+                                          rows="4">${sessionScope.loginUser.description}</textarea>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary btn-sm btn-block"><i></i> 更改</button>
                             </div>
                         </form>
                     </div>
@@ -326,7 +340,7 @@
 <script src="${pageContext.request.contextPath}/layui/layui.js" charset="utf-8"></script>
 </body>
 <script>
-    layui.use('layedit', function () {
+    layui.use(['layedit', 'laydate'], function () {
         var layedit = layui.layedit, $ = layui.jquery;
         //自定义工具栏
         var index = layedit.build('lay_editor', {
@@ -377,6 +391,9 @@
     function changeBg() {
         $('#test1').click();
     }
+
+    var laydate = layui.laydate;
+    laydate.skin('molv');
 </script>
 </body>
 </html>

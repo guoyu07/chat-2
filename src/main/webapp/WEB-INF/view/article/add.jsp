@@ -73,9 +73,9 @@
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
-                            <div class="col-sm-4 col-sm-offset-2">
-                                <button class="btn btn-primary" type="submit">发表</button>
-                                <button class="btn btn-white" type="submit">取消</button>
+                            <label class="col-sm-2 control-label">操作 *</label>
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-block btn-outline btn-primary">发表</button>
                             </div>
                         </div>
                     </form>

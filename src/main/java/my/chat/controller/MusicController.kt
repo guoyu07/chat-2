@@ -4,6 +4,7 @@ import com.jfinal.aop.Clear
 import com.jfinal.core.Controller
 import com.xiaoleilu.hutool.util.ObjectUtil
 import my.chat.common.MusicConstants
+import my.chat.model.Songs
 import my.chat.plugin.ZXingCode
 import my.chat.service.MusicService
 import java.io.File
@@ -23,6 +24,8 @@ import java.net.URLEncoder
  */
 @Clear
 class MusicController : Controller() {
+
+    internal var song: Songs? = null
 
     companion object {
         internal var musicService = MusicService()
@@ -44,10 +47,10 @@ class MusicController : Controller() {
             songs = "1"
             album = "1"
             singers = "1"
-        }else{
-            songs = if(songs == null) null else "1"
-            album = if(album == null) null else "1"
-            singers = if(singers == null) null else "1"
+        } else {
+            songs = if (songs == null) null else "1"
+            album = if (album == null) null else "1"
+            singers = if (singers == null) null else "1"
         }
         setAttr("page", songsPage)
                 .setAttr(MusicConstants.QUERY_NAME, queryName)
@@ -55,6 +58,16 @@ class MusicController : Controller() {
                 .setAttr("album", album)
                 .setAttr("singers", singers)
                 .renderJsp("list.jsp")
+    }
+
+    fun addSong() {
+        if ("GET".equals(request.method, ignoreCase = true)) {
+            renderJsp("add.jsp")
+        } else {
+            getBean(Songs::class.java, "").save()
+            setAttr("addMsg", "添加歌曲成功")
+                    .renderJsp("add.jsp")
+        }
     }
 
     fun showQRCode() {

@@ -22,6 +22,7 @@
     <link href="${pageContext.request.contextPath}/static/css/plugins/footable/footable.core.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/css/animate.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/css/style.min.css-v=4.0.0.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/plugins/plyr/plyr.css">
     <style>
         ul.pagination1 {
             display: inline-block;
@@ -29,7 +30,9 @@
             margin: 0;
         }
 
-        ul.pagination1 li {display: inline;}
+        ul.pagination1 li {
+            display: inline;
+        }
 
         ul.pagination1 li a {
             color: black;
@@ -43,10 +46,14 @@
             color: white;
         }
 
-        ul.pagination1 li a:hover:not(.active) {background-color: #ddd;}
+        ul.pagination1 li a:hover:not(.active) {
+            background-color: #ddd;
+        }
+
         ul.pagination1 li a {
             border: 1px solid #ddd;
         }
+
         .pagination1 li:first-child a {
             border-top-left-radius: 5px;
             border-bottom-left-radius: 5px;
@@ -56,13 +63,14 @@
             border-top-right-radius: 5px;
             border-bottom-right-radius: 5px;
         }
+
         ul.pagination1 li a {
             margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
         }
     </style>
 </head>
 <body class="gray-bg">
-<jsp:useBean id="dateValue" class="java.util.Date" />
+<jsp:useBean id="dateValue" class="java.util.Date"/>
 <div class="wrapper wrapper-content animated fadeInRight" style="height: 100%;">
     <div class="row" style="height: 100%;">
         <div class="col-sm-12" style="height: 100%;">
@@ -100,7 +108,8 @@
                     </div>
                 </div>
                 <div class="ibox-content" style="height: 93%;">
-                    <input type="text" class="form-control input-sm m-b-xs" id="filter" value="${queryName}" placeholder="请输入要搜索的关键字...">
+                    <input type="text" class="form-control input-sm m-b-xs" id="filter" value="${queryName}"
+                           placeholder="请输入要搜索的关键字...">
                     <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
                         <thead>
                         <tr>
@@ -120,7 +129,8 @@
                                     <a href="${s.url}" target="_blank">
                                          <span class="songsSpan1">
                                              <c:if test="${fn:contains(s.name,queryName)}">
-                                                 ${fn:substring(s.name,0 ,fn:indexOf(s.name,queryName ))}<span style="color: crimson;">${queryName}</span>${fn:substring(s.name,fn:indexOf(s.name,queryName) + fn:length(queryName) , fn:length(s.name) )}
+                                                 ${fn:substring(s.name,0 ,fn:indexOf(s.name,queryName ))}<span
+                                                     style="color: crimson;">${queryName}</span>${fn:substring(s.name,fn:indexOf(s.name,queryName) + fn:length(queryName) , fn:length(s.name) )}
                                              </c:if>
                                              <c:if test="${not fn:contains(s.name,queryName )}">
                                                  ${s.name}
@@ -140,7 +150,8 @@
                                 <td><a href="${s.albumurl}" target="_blank">
                         <span class="albumSpan1">
                         <c:if test="${fn:contains(s.albumname,queryName)}">
-                            ${fn:substring(s.albumname,0 ,fn:indexOf(s.albumname,queryName ))}<span style="color: crimson;">${queryName}</span>${fn:substring(s.albumname,fn:indexOf(s.albumname,queryName) + fn:length(queryName) , fn:length(s.albumname) )}
+                            ${fn:substring(s.albumname,0 ,fn:indexOf(s.albumname,queryName ))}<span
+                                style="color: crimson;">${queryName}</span>${fn:substring(s.albumname,fn:indexOf(s.albumname,queryName) + fn:length(queryName) , fn:length(s.albumname) )}
                         </c:if>
                         <c:if test="${not fn:contains(s.albumname,queryName )}">
                             ${s.albumname}
@@ -153,7 +164,8 @@
                                 <td><a href="${s.homepage}" target="_blank">
                         <span class="singersSpan1">
                         <c:if test="${fn:contains(s.sname,queryName)}">
-                            ${fn:substring(s.sname,0 ,fn:indexOf(s.sname,queryName ))}<span style="color: crimson;">${queryName}</span>${fn:substring(s.sname,fn:indexOf(s.sname,queryName) + fn:length(queryName) , fn:length(s.sname) )}
+                            ${fn:substring(s.sname,0 ,fn:indexOf(s.sname,queryName ))}<span
+                                style="color: crimson;">${queryName}</span>${fn:substring(s.sname,fn:indexOf(s.sname,queryName) + fn:length(queryName) , fn:length(s.sname) )}
                         </c:if>
                         <c:if test="${not fn:contains(s.sname,queryName )}">
                             ${s.sname}
@@ -164,7 +176,8 @@
                                     </span>
                                 </a></td>
                                 <td>
-                                    <a href="javascript:;" onclick="openWin('${pageContext.request.contextPath}/music/showQRCode')">查看二维码</a>
+                                    <a href="javascript:;"
+                                       onclick="openWin('${pageContext.request.contextPath}/music/showQRCode')">查看二维码</a>
                                     <a href="/music/downloadQRCode">下载二维码</a>
                                 </td>
                                 <td><a href="javascript:;" onclick="playMusic('${s.url}');"><i
@@ -177,19 +190,23 @@
                             <td colspan="6">
                                 <ul class="pagination1" style="float: right;">
                                     <li>
-                                        <a href="javascript:;" onclick="jump('1${empty queryName ? "" : "&q="}${queryName}')">«</a>
+                                        <a href="javascript:;"
+                                           onclick="jump('1${empty queryName ? "" : "&q="}${queryName}')">«</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:;" onclick="jump('${page.pageNumber > 1 ? page.pageNumber - 1 : 1}${empty queryName ? "" : "&q="}${queryName}')">‹</a>
+                                        <a href="javascript:;"
+                                           onclick="jump('${page.pageNumber > 1 ? page.pageNumber - 1 : 1}${empty queryName ? "" : "&q="}${queryName}')">‹</a>
                                     </li>
                                     <li>
                                         <a href="#">${page.pageNumber}</a>
                                     </li>
                                     <li>
-                                    <a href="javascript:;" onclick="jump('${page.pageNumber + 1 > page.totalPage ? songsPage.totalPage : page.pageNumber + 1}${empty queryName ? "" : "&q="}${queryName}')">›</a>
+                                        <a href="javascript:;"
+                                           onclick="jump('${page.pageNumber + 1 > page.totalPage ? songsPage.totalPage : page.pageNumber + 1}${empty queryName ? "" : "&q="}${queryName}')">›</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:;" onclick="jump('${(page.totalPage == '' || page.totalPage == null) ? 1 : page.totalPage}${empty queryName ? '' : '&q='}${queryName}')">»</a>
+                                        <a href="javascript:;"
+                                           onclick="jump('${(page.totalPage == '' || page.totalPage == null) ? 1 : page.totalPage}${empty queryName ? '' : '&q='}${queryName}')">»</a>
                                     </li>
                                 </ul>
                             </td>
@@ -206,6 +223,7 @@
 <script src="${pageContext.request.contextPath}/static/js/plugins/footable/footable.all.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/content.min.js-v=1.0.0.js"></script>
 <script src="${pageContext.request.contextPath}/layer/layer.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/static/js/plugins/plyr/plyr.js"></script>
 <script>
     $(function () {
         $(".footable").footable();
@@ -228,17 +246,94 @@
                 var songs = $('#songs').is(':checked');
                 var album = $('#album').is(':checked');
                 var singers = $('#singers').is(':checked');
-                location.href = '${pageContext.request.contextPath}/music/list?q='+q+"&songs="+songs+"&album="+album+"&singers="+singers;
+                location.href = '${pageContext.request.contextPath}/music/list?q=' + q + "&songs=" + songs + "&album=" + album + "&singers=" + singers;
             }
         });
-    })
+    });
+
     function playMusic(data) {
-        /*var id = data.substr(data.lastIndexOf('=') + 1, data.length);
-        var prefix = '//music.163.com/outchain/player?type=2&id=';
-        var suffix = '&auto=1&height=66';
-        var url = prefix + id + suffix;
-        $('#music').attr('src', url);*/
-        layer.msg('暂时不提供', {icon: 6, offset: '200px'});
+        var html = '';
+        html += '<div class="ibox float-e-margins">';
+        html += '<div class="ibox-title">';
+        html += '<h5>歌曲播放</h5>';
+        html += '<div class="ibox-tools">';
+        html += '<a class="collapse-link">';
+        html += '<i class="fa fa-chevron-up"></i>';
+        html += '</a>';
+        html += '<a class="dropdown-toggle" data-toggle="dropdown" href="#">';
+        html += '<i class="fa fa-wrench"></i>';
+        html += '</a>';
+        html += '<ul class="dropdown-menu dropdown-user">';
+        html += '<li>'
+        html += '<a href="form_basic.html#" tppabs="http://www.zi-han.net/theme/hplus/form_basic.html#">选项1</a>';
+        html += '</li>';
+        html += '<li>';
+        html += '<a href="form_basic.html#" tppabs="http://www.zi-han.net/theme/hplus/form_basic.html#">选项2</a>';
+        html += '</li>';
+        html += '</ul>';
+        html += '<a class="close-link">';
+        html += '<i class="fa fa-times"></i>';
+        html += '</a>';
+        html += '</div>';
+        html += '</div>';
+        html += '<div class="ibox-content">';
+        html += '<div class="player player-audio stopped">';
+        html += '<audio>';
+        html += '<source src="' + data + '" type="audio/mp3">';
+        html += ' 您的浏览器不支持在线播放，请<a href="#">下载</a>';
+        html += '</audio>';
+        html += '<div class="player-controls">';
+        html += '<div class="player-progress">';
+        html += '<label for="seek5292" class="sr-only">Seek</label>';
+        html += '<input id="seek5292" class="player-progress-seek" type="range" min="0" max="100" step="0.5" value="0" data-player="seek">';
+        html += '<progress class="player-progress-played" max="100" value="0"><span>0</span>% 播放中</progress>';
+        html += '<progress class="player-progress-buffer" max="100" value="0"><span>0</span>% 缓冲中</progress>';
+        html += '</div>';
+        html += '<span class="player-controls-left">';
+        html += '<button type="button" data-player="restart">';
+        html += '<svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-restart"></use></svg>';
+        html += '<span class="player-tooltip">重新播放</span></button><button type="button" data-player="rewind">';
+        html += '<svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-rewind"></use></svg>';
+        html += '<span class="player-tooltip">后退10秒</span>';
+        html += '</button>';
+        html += '<button type="button" data-player="play" aria-label="播放">';
+        html += ' <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play"></use></svg>';
+        html += '<span class="player-tooltip">播放</span></button><button type="button" data-player="pause">';
+        html += '<svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-pause"></use></svg>';
+        html += '<span class="player-tooltip">暂停</span>';
+        html += '</button>';
+        html += '<button type="button" data-player="fast-forward">';
+        html += '<svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-fast-forward"></use></svg>';
+        html += '<span class="player-tooltip">快进10秒</span>';
+        html += '</button>';
+        html += '<span class="player-time"><span class="sr-only">当前时间</span><span class="player-current-time">00:00</span></span>';
+        html += '<span class="player-time"><span class="sr-only">持续时间</span><span class="player-duration">00:00</span></span></span>';
+        html += '<span class="player-controls-right">';
+        html += '<button type="button" data-player="mute" aria-pressed="false">';
+        html += '<svg class="icon-muted"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-muted"></use></svg>';
+        html += '<svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-volume"></use></svg>';
+        html += '<span class="player-tooltip">静音</span>';
+        html += '</button>';
+        html += '<label for="volume5292" class="sr-only">音量</label>';
+        html += '<input id="volume5292" class="player-volume" type="range" min="0" max="10" value="5" data-player="volume">';
+        html += '<button type="button" data-player="fullscreen">';
+        html += '<svg class="icon-exit-fullscreen"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-exit-fullscreen"></use></svg>';
+        html += '<svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-enter-fullscreen"></use></svg>';
+        html += '<span class="player-tooltip">全屏</span>';
+        html += '</button>';
+        html += '</span>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+        layer.open({
+            type: 1,
+            title: false,
+            closeBtn: 0,
+            shadeClose: true,
+            skin: 'yourclass',
+            content: html
+        });
     }
 
     function jump(url) {

@@ -19,7 +19,4 @@ class IndexController : Controller() {
         renderJsp("/index.jsp")
     }
 
-    fun home(){
-        renderJsp("home.jsp")
-    }
 }

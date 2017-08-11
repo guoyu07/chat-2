@@ -63,37 +63,8 @@
                     <div class="logo-element">chat</div>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="fa fa-home"></i>
-                        <span class="nav-label">主页</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a class="J_menuItem" href="index_v1.html"
-                               tppabs="http://www.zi-han.net/theme/hplus/index_v1.html" data-index="0">主页示例一</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="index_v2.html"
-                               tppabs="http://www.zi-han.net/theme/hplus/index_v2.html">主页示例二</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="index_v3.html"
-                               tppabs="http://www.zi-han.net/theme/hplus/index_v3.html">主页示例三</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="index_v4.html"
-                               tppabs="http://www.zi-han.net/theme/hplus/index_v4.html">主页示例四</a>
-                        </li>
-                        <li>
-                            <a href="index_v5.html" target="_blank">主页示例五</a>
-                        </li>
-                    </ul>
-
-                </li>
-                <li>
-                    <a class="J_menuItem" href="/social"><i class="fa fa-commenting-o"></i> <span
-                            class="nav-label">聊天室</span></a>
+                    <a class="J_menuItem" href="/user/contacts"><i class="fa fa-users"></i> <span
+                            class="nav-label">联系人</span></a>
                 </li>
                 <li>
                     <a class="J_menuItem" href="/social/robot"><i class="fa fa-android"></i> <span
@@ -263,9 +234,11 @@
                         </ul>
                     </li>
                     <!-- /消息提醒 -->
-                    <li class="hidden-xs">
+                   <%--
+                   <li class="hidden-xs">
                         <a href="#" class="J_menuItem" data-index="0"><i class="fa fa-cart-arrow-down"></i> 购买</a>
                     </li>
+                    --%>
                     <li class="dropdown hidden-xs">
                         <a class="right-sidebar-toggle" aria-expanded="false">
                             <i class="fa fa-tasks"></i> 主题
@@ -279,7 +252,7 @@
             </button>
             <nav class="page-tabs J_menuTabs">
                 <div class="page-tabs-content">
-                    <a href="javascript:;" class="active J_menuTab" data-id="index_v1.html">首页</a>
+                    <a href="javascript:;" class="active J_menuTab">聊天室</a>
                 </div>
             </nav>
             <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i>
@@ -300,9 +273,7 @@
             <a href="/user/exit" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
         </div>
         <div class="row J_mainContent" id="content-main">
-            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="/home"
-                    tppabs="http://www.zi-han.net/theme/hplus/index_v1.html?v=4.0" frameborder="0"
-                    data-id="index_v1.html" seamless></iframe>
+            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="/social" frameborder="0" seamless></iframe>
         </div>
         <div class="footer">
             <div class="pull-right">&copy; 2017 - 2027 <a href="">lyu test</a>

@@ -102,7 +102,17 @@ class UserController : Controller() {
 
     fun exit() = removeSessionAttr(UserConstants.LOGIN_USER).redirect("/")
 
-    fun profile() = setAttr("way", "my").renderJsp(ViewConstants.PROFILE)
+    fun profile() {
+        val id = getParaToInt("id")
+        if (ObjectUtil.isNull(id))
+            setAttr("way", "my")
+        else {
+
+            var user = User().find("SELECT * FROM user WHERE id=$id")
+            setAttr("way", "other").setAttr("u", user)
+        }
+        renderJsp(ViewConstants.PROFILE)
+    }
 
     // 修改个人信息
     fun modifyInfo() {
@@ -110,6 +120,7 @@ class UserController : Controller() {
             user = getSessionAttr(UserConstants.LOGIN_USER)
             val modifyUser = getBean(User::class.java)
             user!!.setGender(modifyUser.gender)
+                    .setBorndate(modifyUser.borndate)
                     .setDescription(modifyUser.description)
                     .setAddressDetails(modifyUser.addressDetails)
                     .update()
@@ -144,7 +155,7 @@ class UserController : Controller() {
         renderJson(map)
     }
 
-    fun uploadMyAvatar(){
+    fun uploadMyAvatar() {
         var file = getFile("file")
         val path = "/upload/" + file.fileName
         println(path)
@@ -226,6 +237,12 @@ class UserController : Controller() {
         val map = Record()
         id = if (Objects.isNull(user)) 0 else user!!.id!!
         renderJson(map.set("ret", ret).set("msg", msg).set("uuid", uuid).set("id", id))
+    }
+
+    fun contacts() {
+        val list = User().find("SELECT * FROM user")
+        setAttr("list", list)
+                .renderJsp("contacts.jsp")
     }
 
     val url: String

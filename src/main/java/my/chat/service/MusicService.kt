@@ -49,6 +49,7 @@ class MusicService {
                 sqlSuffix.append("s.name LIKE '${queryName}' OR ss.name LIKE '${queryName}')")
             }
         }
+        sqlSuffix.append(" ORDER BY id DESC")
         return dao.paginate(p, pageSize, sqlPrifix, sqlSuffix.toString())
     }
 
